@@ -1,15 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package com.uia.is12.business;
 
-/**
- *
- * @author kevin
- */
+import com.uia.is12.data.QATrackerDAO;
+import com.uia.is12.domain.Usuario;
+import java.sql.SQLException;
+
 public class QATrackerBusiness {
+    private QATrackerDAO qaTrackerDAO;
+    
+    public QATrackerBusiness() {
+    
+        this.qaTrackerDAO = new QATrackerDAO();
+    }
+    
+    public boolean getUserInfo(String username, String password) throws SQLException{
+        return qaTrackerDAO.getUserInfo(username,password);
+    }
     
 }
