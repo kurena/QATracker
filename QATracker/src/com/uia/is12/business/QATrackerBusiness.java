@@ -14,8 +14,13 @@ public class QATrackerBusiness {
         this.qaTrackerDAO = new QATrackerDAO();
     }
     
-    public boolean getUserInfo(String username, String password) throws SQLException{
-        return qaTrackerDAO.getUserInfo(username,password);
+    public void getUserInfo() throws SQLException{
+        qaTrackerDAO.getUserInfo();
     }
+    
+    public boolean validarDatosLogin(String username, String password){
+        return qaTrackerDAO.validarDatosLogin(username,password);
+    }
+    
     
 }

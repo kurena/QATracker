@@ -16,26 +16,33 @@ public class QATrackerDAO {
     static final String USER = "root";
     static final String PASSWORD = "root";
     
+    ArrayList<Usuario> usuario= new ArrayList();
+    
     Connection con = null;
     CallableStatement stmt = null;
     
-     public boolean getUserInfo(String username, String password) throws SQLException{
+     public void getUserInfo() throws SQLException{
         
         con = DriverManager.getConnection(DB_URL,USER,PASSWORD);
-        String sql = "SELECT * FROM user WHERE username='" + username +"' AND password='" + password +"'";
+        String sql = "SELECT * FROM user";
         stmt = con.prepareCall(sql);
         ResultSet res = stmt.executeQuery();
-        
-        if(res.next()){
-            
-            return true;
-            
-        }else{
-            
-            return false;
+        while(res.next()){
+            usuario.add(new Usuario(res.getString("username"),res.getString("password")));
         }
-            
-     
+        stmt.close();
+        con.close();
     }
+     
+    public boolean validarDatosLogin(String username, String password){
+        boolean dec = false;
+        for(Usuario u: usuario){
+            if(u.getUsername().equals(username) && u.getPassword().equals(password)){
+                dec = true;
+            }
+        }
+        
+        return dec;
+    } 
     
 }

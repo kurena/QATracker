@@ -13,8 +13,14 @@ public class QATrackerView extends javax.swing.JFrame {
     /**
      * Creates new form QATrackerView
      */
-    public QATrackerView() {
+    public QATrackerView(){
         initComponents();
+        try{
+           qaTrackerBusiness.getUserInfo();
+        }catch(Exception e){
+       
+        }
+        
     }
 
  
@@ -102,7 +108,12 @@ public class QATrackerView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        try{
-           logIn();
+            boolean dec = qaTrackerBusiness.validarDatosLogin(username.getText(), password.getText());
+            if(dec == true){
+                JOptionPane.showMessageDialog(rootPane,"Bienvenido");
+            }
+            else
+                JOptionPane.showMessageDialog(rootPane,"Datos Erroneos");
        }catch(Exception e){
        
        }
@@ -143,14 +154,7 @@ public class QATrackerView extends javax.swing.JFrame {
         });
     }
     
-    public void logIn() throws SQLException{
-        boolean dec = qaTrackerBusiness.getUserInfo(username.getText(), password.getText());
-        if(dec == true){
-            JOptionPane.showMessageDialog(rootPane,"Bienvenido");
-        }
-        else
-            JOptionPane.showMessageDialog(rootPane,"Datos Erroneos");
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
