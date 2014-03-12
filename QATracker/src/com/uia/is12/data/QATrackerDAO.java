@@ -16,7 +16,7 @@ public class QATrackerDAO {
     static final String USER = "root";
     static final String PASSWORD = "root";
     
-    ArrayList<Usuario> usuario= new ArrayList();
+    public static ArrayList<Usuario> usuario= new ArrayList();
     
     Connection con = null;
     CallableStatement stmt = null;

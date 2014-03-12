@@ -52,6 +52,7 @@ public class QATrackerView extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,6 +113,16 @@ public class QATrackerView extends javax.swing.JFrame {
         });
 
         jMenu1.setText("File");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_UP, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Ayuda");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -221,6 +232,10 @@ public class QATrackerView extends javax.swing.JFrame {
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
     }//GEN-LAST:event_usernameActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     
     public ImageIcon updateImageButton(String path){
         InputStream imgStream = QATrackerView.class.getResourceAsStream(path);
@@ -281,6 +296,7 @@ public class QATrackerView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;

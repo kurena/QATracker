@@ -7,10 +7,12 @@
 package com.uia.is12.panel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,6 +29,20 @@ public class QAGradient extends javax.swing.JPanel {
     }
     @Override
     protected void paintComponent(Graphics g) {
+        
+        Dimension tam= getSize();
+        ImageIcon REC= new ImageIcon(new ImageIcon(getClass().getResource("../images/bg.png")).getImage());
+        g.drawImage(REC.getImage(), 0,0,tam.width, tam.height,null );
+        setOpaque(false);
+        super.paintComponent(g);
+
+        
+        
+        
+        
+        
+        
+        /*
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -37,7 +53,7 @@ public class QAGradient extends javax.swing.JPanel {
         Color color2 = validateColor()[1];
         GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
         g2d.setPaint(gp);
-        g2d.fillRect(0, 0, w, h);
+        g2d.fillRect(0, 0, w, h);*/
     }
     //Class to give the color validation
     private Color[] validateColor(){

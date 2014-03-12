@@ -64,7 +64,7 @@ public class QATrackerRegister extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         state = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(scrollbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 
