@@ -22,5 +22,13 @@ public class QATrackerBusiness {
         return qaTrackerDAO.validarDatosLogin(username,password);
     }
     
+    public boolean insertarDatos(String userName, String password) throws SQLException{
+        return qaTrackerDAO.insertarDatos(userName,password);
+    }
+    
+    public boolean buscarCoincidencia(String search) throws SQLException{
+        return qaTrackerDAO.search(search);
+    }
+    
     
 }

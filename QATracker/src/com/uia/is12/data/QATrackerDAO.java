@@ -21,12 +21,19 @@ public class QATrackerDAO {
     Connection con = null;
     CallableStatement stmt = null;
     
-     public void getUserInfo() throws SQLException{
-        
-        con = DriverManager.getConnection(DB_URL,USER,PASSWORD);
-        String sql = "SELECT * FROM user";
+     public void openConnection() throws SQLException{
+          con = DriverManager.getConnection(DB_URL,USER,PASSWORD); 
+     }
+     
+     public ResultSet executeQuery(String sql) throws SQLException{
         stmt = con.prepareCall(sql);
         ResultSet res = stmt.executeQuery();
+        return res;
+     }
+     
+     public void getUserInfo() throws SQLException{
+        openConnection();
+        ResultSet res = executeQuery("SELECT * FROM user");
         while(res.next()){
             usuario.add(new Usuario(res.getString("username"),res.getString("password")));
         }
@@ -44,5 +51,29 @@ public class QATrackerDAO {
         
         return dec;
     } 
+    
+    public boolean insertarDatos(String username, String password) throws SQLException{
+        openConnection();
+        String sql = "INSERT INTO user (username, password, age, name) VALUES ('"+username+"', '"+password+"', '12', '"+username+"');";
+        stmt = con.prepareCall(sql);
+        stmt.execute(sql);
+        closeConnection(stmt,con);
+        return true;
+    }
+    
+    public void closeConnection(Statement stmt, Connection con) throws SQLException{
+        stmt.close();
+        con.close();
+    }
+    
+    public boolean search(String search) throws SQLException{
+        boolean returning = false;
+        openConnection();
+        ResultSet res = executeQuery("SELECT * from user WHERE username='"+search+"'");
+        while(res.next()){
+            returning = true;
+        }
+        return returning;
+    }
     
 }
