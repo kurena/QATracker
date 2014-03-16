@@ -75,23 +75,23 @@ public class QATrackerRegister extends javax.swing.JFrame {
 
         nombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nombre.setText("Nombre de Usuario:");
-        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
-        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 200, -1));
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 65, -1, 20));
+        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 200, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("Ingrese los datos requeridos");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 11, 353, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 11, 400, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 46, 450, 10));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Contraseña:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
-        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 200, -1));
-        getContentPane().add(pass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 200, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 95, -1, 20));
+        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 200, -1));
+        getContentPane().add(pass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 200, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Repetir Contraseña:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, 30));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/volver.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
@@ -130,8 +130,7 @@ public class QATrackerRegister extends javax.swing.JFrame {
 
         state.setFont(new java.awt.Font("Tahoma", 3, 8)); // NOI18N
         state.setForeground(new java.awt.Color(204, 0, 0));
-        state.setText("Estado:");
-        getContentPane().add(state, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 340, -1));
+        getContentPane().add(state, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 340, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
