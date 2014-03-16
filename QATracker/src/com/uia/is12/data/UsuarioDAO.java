@@ -26,7 +26,7 @@ public class UsuarioDAO {
     
     public void insertarDatos(Usuario usuario) throws SQLException{
         mysqlDB = new MySQLDB();
-        String sql = "INSERT INTO user (username, password, age, name) VALUES ('"+usuario.getUsername()+"', '"+usuario.getPassword()+"', '12', '"+usuario.getUsername()+"');";
+        String sql = "INSERT INTO user (username, password, name, age, lastname, role) VALUES ('"+usuario.getUsername()+"', '"+usuario.getPassword()+"', '"+usuario.getName()+"',"+usuario.getEdad()+", '"+usuario.getLastname()+"','desarrollador');";
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     }

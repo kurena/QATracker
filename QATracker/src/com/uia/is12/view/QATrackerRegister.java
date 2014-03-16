@@ -55,7 +55,6 @@ public class QATrackerRegister extends javax.swing.JFrame {
         scrollbar1 = new java.awt.Scrollbar();
         jTextField2 = new javax.swing.JTextField();
         nombre = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
@@ -65,6 +64,13 @@ public class QATrackerRegister extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         state = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        username = new javax.swing.JTextField();
+        lastname = new javax.swing.JTextField();
+        age = new javax.swing.JTextField();
+        nombre1 = new javax.swing.JLabel();
+        nombre2 = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,9 +80,8 @@ public class QATrackerRegister extends javax.swing.JFrame {
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 
         nombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        nombre.setText("Nombre de Usuario:");
-        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 65, -1, 20));
-        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 200, -1));
+        nombre.setText("Edad");
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("Ingrese los datos requeridos");
@@ -108,7 +113,7 @@ public class QATrackerRegister extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 80, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 80, 30));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/registrar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
@@ -126,11 +131,24 @@ public class QATrackerRegister extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 80, 30));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 310, 80, 30));
 
         state.setFont(new java.awt.Font("Tahoma", 3, 8)); // NOI18N
         state.setForeground(new java.awt.Color(204, 0, 0));
-        getContentPane().add(state, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 340, 10));
+        getContentPane().add(state, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 340, 10));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 600, -1));
+        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 200, -1));
+        getContentPane().add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 200, -1));
+        getContentPane().add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 60, -1));
+
+        nombre1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nombre1.setText("Nombre de Usuario:");
+        getContentPane().add(nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 65, -1, 20));
+
+        nombre2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nombre2.setText("Nombre y apellido:");
+        getContentPane().add(nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, 30));
+        getContentPane().add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 200, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -157,12 +175,15 @@ public class QATrackerRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String usernameLabel = username.getText();
+        String usernameLabel = name.getText();
         Usuario user = new Usuario();
-        if(!password.getText().equals("") && password.getText().equals(pass2.getText()) && !username.getText().equals("")){
+        if(!password.getText().equals("") && password.getText().equals(pass2.getText()) && !username.getText().equals("") && !name.getText().equals("") && !lastname.getText().equals("") && !age.getText().equals("") ){
            try {
                user.setUsername(username.getText());
                user.setPassword(password.getText());
+               user.setName(name.getText());
+               user.setLastname(lastname.getText());
+               user.setEdad(Integer.parseInt(age.getText()));
                boolean res = dao.insertarDatos(user);
                if(res == true){
                     state.setText("Nombre de usuario ya existe. Por favor ingrese uno nuevo.");
@@ -225,14 +246,20 @@ public class QATrackerRegister extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField age;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField lastname;
+    private javax.swing.JTextField name;
     private javax.swing.JLabel nombre;
+    private javax.swing.JLabel nombre1;
+    private javax.swing.JLabel nombre2;
     private javax.swing.JPasswordField pass2;
     private javax.swing.JPasswordField password;
     private java.awt.Scrollbar scrollbar1;

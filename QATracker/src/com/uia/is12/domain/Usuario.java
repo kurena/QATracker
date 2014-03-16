@@ -7,6 +7,9 @@ public class Usuario {
     
     private String username;
     private String password;
+    private String name;
+    private String lastname;
+    private int edad;
 
     public Usuario() {
         
@@ -32,6 +35,31 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+    
     
     
     
