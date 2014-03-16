@@ -7,7 +7,8 @@
 package com.uia.is12.view;
 
 import com.uia.is12.business.QATrackerBusiness;
-import com.uia.is12.data.QATrackerDAO;
+import com.uia.is12.domain.Usuario;
+import com.uia.is12.data.UsuarioDAO;
 import com.uia.is12.panel.QAGradient;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
@@ -26,6 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class QATrackerRegister extends javax.swing.JFrame {
     private QATrackerBusiness dao = new QATrackerBusiness();
+    
     /**
      * Creates new form QATrackerMainMenu
      */
@@ -157,23 +159,21 @@ public class QATrackerRegister extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String usernameLabel = username.getText();
+        Usuario user = new Usuario();
         if(!password.getText().equals("") && password.getText().equals(pass2.getText()) && !username.getText().equals("")){
            try {
-                if(!dao.buscarCoincidencia(usernameLabel)){
-                  if(  dao.insertarDatos(username.getText(), password.getText())){
-                      state.setText("Estado: El usuario se ha agregado exitosamente");
-                   //JOptionPane.showMessageDialog(rootPane, "El usuario se ha agregado exitosamente", "Exito",JOptionPane.INFORMATION_MESSAGE);
-                  }
-                } else {
-                    state.setText("Estado: Ya hay un usuario con el username escogido");
-                   // JOptionPane.showMessageDialog(null, "Ya hay un usuario con el username escogido","Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(QATrackerRegister.class.getName()).log(Level.SEVERE, null, ex);
+               user.setUsername(username.getText());
+               user.setPassword(password.getText());
+               boolean res = dao.insertarDatos(user);
+               if(res == true){
+                    state.setText("Nombre de usuario ya existe. Por favor ingrese uno nuevo.");
+               }else
+                    state.setText("Usuario ingresado correctamente.");
+            }catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
             } 
-        } else {
-            state.setText("Estado: Revise las contraseñas o llene todos los campos");
-                //JOptionPane.showMessageDialog(null, "Revise las contraseñas o llene todos los campos","Error", JOptionPane.ERROR_MESSAGE);
+        }else {
+            state.setText("Revise las contraseñas o llene todos los campos");
         }
         
         

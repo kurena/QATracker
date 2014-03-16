@@ -3,11 +3,13 @@
 package com.uia.is12.view;
 
 import com.uia.is12.business.QATrackerBusiness;
+import com.uia.is12.domain.Usuario;
 import com.uia.is12.panel.QAGradient;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -16,7 +18,8 @@ import javax.swing.JOptionPane;
 
 
 public class QATrackerView extends javax.swing.JFrame {
-    QATrackerBusiness qaTrackerBusiness = new QATrackerBusiness();
+    private QATrackerBusiness qaTrackerBusiness = new QATrackerBusiness();
+    private Usuario usuario = new Usuario();
     /**
      * Creates new form QATrackerView
      */
@@ -28,13 +31,7 @@ public class QATrackerView extends javax.swing.JFrame {
     public final void addPanel(){
         QAGradient as = new QAGradient("MAIN");
         this.setLayout(new BorderLayout());
-        this.add(as, BorderLayout.CENTER);
-
-        try{
-           qaTrackerBusiness.getUserInfo();
-        }catch(Exception e){
-       
-        }  
+        this.add(as, BorderLayout.CENTER); 
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -197,15 +194,18 @@ public class QATrackerView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        try{
-            boolean dec = qaTrackerBusiness.validarDatosLogin(username.getText(), password.getText());
-            if(dec == true){
-                JOptionPane.showMessageDialog(rootPane,"Bienvenido");
-            }
-            else
-                JOptionPane.showMessageDialog(rootPane,"Datos Erroneos");
-       }catch(Exception e){
-           
-       }
+           usuario.setUsername(username.getText());
+           usuario.setPassword(password.getText());
+           boolean dec = qaTrackerBusiness.validarDatosLogin(usuario);
+                if(dec == true){
+                    JOptionPane.showMessageDialog(rootPane,"Bienvenido");
+                }
+                else
+                    JOptionPane.showMessageDialog(rootPane,"Datos Erroneos");
+           }catch(Exception ex){
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+           }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
