@@ -41,10 +41,15 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     
     private void loadPerfilStuff(){
         welcome.setText(qaTrackerBusiness.getLoggedUser());
-        ArrayList<Issue> issues = new ArrayList<>();
+        ArrayList<Issue> issues = new ArrayList<Issue>();
         issues = qaTrackerBusiness.returnIssuesFromCurrentUser();
         DefaultTableModel modelo = new DefaultTableModel();
         String datos[]= new String[5];
+        modelo.addColumn("ID Issue");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("ID User");
+        modelo.addColumn("ID user 2");
         for(Issue issue: issues){
             datos[4]=String.valueOf(issue.getIdUserAsignar());
             datos[3]=String.valueOf(issue.getIdUserCreador());
@@ -53,12 +58,8 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             datos[0]=String.valueOf(issue.getId());
             modelo.addRow(datos);
         }
-        modelo.addColumn("ID Issue");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Descripcion");
-        modelo.addColumn("ID User");
-        modelo.addColumn("ID user 2");
-        modelo.addRow(datos);    
+        
+        
         issuesNaming.setModel(modelo);
         
     }

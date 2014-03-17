@@ -33,7 +33,8 @@ public class IssueDAO {
         mysqlDB = new MySQLDB();
         String sql = "SELECT * from issue WHERE idUserCreador=1";
         ResultSet res = mysqlDB.executeQuery(sql);
-        if(res.next()){
+        while(res.next()){
+            System.out.println(res.getString("name"));
             arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue")));
         }
         mysqlDB.closeExecuteQuery();
