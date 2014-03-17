@@ -7,8 +7,15 @@
 package com.uia.is12.view;
 
 import com.uia.is12.business.QATrackerBusiness;
+import com.uia.is12.domain.Issue;
 import com.uia.is12.panel.QAGradient;
 import java.awt.BorderLayout;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +29,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     public QATrackerDashboard() {
         initComponents();
         addPanel();
+        loadPerfilStuff();
     }
     public final void addPanel(){
         QAGradient as = new QAGradient("MAIN");
@@ -29,6 +37,30 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         this.add(as, BorderLayout.CENTER);
         panelIntro.setOpaque(false);
         panelIssues.setOpaque(false);
+    }
+    
+    private void loadPerfilStuff(){
+        welcome.setText(qaTrackerBusiness.getLoggedUser());
+        ArrayList<Issue> issues = new ArrayList<>();
+        issues = qaTrackerBusiness.returnIssuesFromCurrentUser();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String datos[]= new String[5];
+        for(Issue issue: issues){
+            datos[4]=String.valueOf(issue.getIdUserAsignar());
+            datos[3]=String.valueOf(issue.getIdUserCreador());
+            datos[2]=issue.getDescription();
+            datos[1]=issue.getName();
+            datos[0]=String.valueOf(issue.getId());
+            modelo.addRow(datos);
+        }
+        modelo.addColumn("ID Issue");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("ID User");
+        modelo.addColumn("ID user 2");
+        modelo.addRow(datos);    
+        issuesNaming.setModel(modelo);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,7 +71,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        welcome = new javax.swing.JLabel();
         panelIntro = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -49,7 +81,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        issuesNaming = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -69,9 +101,9 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(200, 100, 700, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Bienvenido: ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 360, 40));
+        welcome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        welcome.setText("Bienvenido: ");
+        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 360, 40));
 
         panelIntro.setBackground(new java.awt.Color(255, 255, 255));
         panelIntro.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -124,7 +156,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel2.setText("Los Issues asignados a tu nombre");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        issuesNaming.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -135,7 +167,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(issuesNaming);
 
         javax.swing.GroupLayout panelIssuesLayout = new javax.swing.GroupLayout(panelIssues);
         panelIssues.setLayout(panelIssuesLayout);
@@ -304,7 +336,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTable issuesNaming;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -322,11 +354,11 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel panelIntro;
     private javax.swing.JPanel panelIssues;
+    private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
 }

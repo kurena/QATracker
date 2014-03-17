@@ -198,7 +198,9 @@ public class QATrackerView extends javax.swing.JFrame {
            usuario.setPassword(password.getText());
            boolean dec = qaTrackerBusiness.validarDatosLogin(usuario);
                 if(dec == true){
-                    JOptionPane.showMessageDialog(rootPane,"Bienvenido");
+                    qaTrackerBusiness.setLoggedUser(username.getText());
+                    this.dispose();
+                    new QATrackerDashboard().setVisible(true);
                 }
                 else
                     JOptionPane.showMessageDialog(rootPane,"Datos Erroneos");

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class UsuarioDAO {
     
     private MySQLDB mysqlDB;
-    
+    private static String user;
+   
     public boolean validarDatosLogin(Usuario usuario) throws SQLException{
         boolean exist = false;
         mysqlDB = new MySQLDB();
@@ -43,4 +44,11 @@ public class UsuarioDAO {
         return returning;
     }
     
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        UsuarioDAO.user = user;
+    }
 }
