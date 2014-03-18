@@ -31,14 +31,24 @@ public class IssueDAO {
     public ArrayList<Issue> search() throws SQLException{
         ArrayList<Issue> arreglo = new ArrayList<Issue>();
         mysqlDB = new MySQLDB();
-        String sql = "SELECT * from issue WHERE idUserCreador=1";
+        String sql = "SELECT * from issue m, user u,user us WHERE idUserCreador="+getUserID()+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
         ResultSet res = mysqlDB.executeQuery(sql);
         while(res.next()){
-            System.out.println(res.getString("name"));
-            arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue")));
+            arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username")));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
+    }
+    
+    public int getUserID() throws SQLException{
+        mysqlDB = new MySQLDB();
+        int id = 0;
+        String sql = "SELECT * from user WHERE username='"+new UsuarioDAO().getUser()+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            id = res.getInt("iduser");
+        }
+        return id;
     }
     
 }

@@ -37,6 +37,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         this.add(as, BorderLayout.CENTER);
         panelIntro.setOpaque(false);
         panelIssues.setOpaque(false);
+        panelBuscar.setVisible(false);
     }
     
     private void loadPerfilStuff(){
@@ -44,20 +45,29 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         ArrayList<Issue> issues = new ArrayList<Issue>();
         issues = qaTrackerBusiness.returnIssuesFromCurrentUser();
         DefaultTableModel modelo = new DefaultTableModel();
-        String datos[]= new String[5];
-        modelo.addColumn("ID Issue");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Descripcion");
-        modelo.addColumn("ID User");
-        modelo.addColumn("ID user 2");
-        for(Issue issue: issues){
-            datos[4]=String.valueOf(issue.getIdUserAsignar());
-            datos[3]=String.valueOf(issue.getIdUserCreador());
-            datos[2]=issue.getDescription();
-            datos[1]=issue.getName();
-            datos[0]=String.valueOf(issue.getId());
-            modelo.addRow(datos);
+        if(issues.size() > 0){
+            String datos[]= new String[5];
+            modelo.addColumn("ID Issue");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("Usuario Creador");
+            modelo.addColumn("Usuario a Resolver");
+            for(Issue issue: issues){
+                datos[4]=issue.getNombreAsignador();
+                datos[3]=issue.getNombreCreador();
+                datos[2]=issue.getDescription();
+                datos[1]=issue.getName();
+                datos[0]=String.valueOf(issue.getId());
+                modelo.addRow(datos);
+            }    
+        }  else {
+            String value[] = new String[1];
+            value[0]="No hay issues asignados a este usuario";
+            modelo.addColumn("Issues");
+            modelo.addRow(value);
+            
         }
+        
         
         
         issuesNaming.setModel(modelo);
@@ -93,18 +103,23 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        panelBuscar = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        idBug = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
+        setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(200, 100, 700, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         welcome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         welcome.setText("Bienvenido: ");
-        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 360, 40));
+        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 360, 40));
 
         panelIntro.setBackground(new java.awt.Color(255, 255, 255));
         panelIntro.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -157,6 +172,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel2.setText("Los Issues asignados a tu nombre");
 
+        issuesNaming.setAutoCreateRowSorter(true);
         issuesNaming.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -168,6 +184,10 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        issuesNaming.setToolTipText("");
+        issuesNaming.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        issuesNaming.setGridColor(new java.awt.Color(0, 0, 0));
+        issuesNaming.setOpaque(false);
         jScrollPane1.setViewportView(issuesNaming);
 
         javax.swing.GroupLayout panelIssuesLayout = new javax.swing.GroupLayout(panelIssues);
@@ -177,7 +197,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             .addGroup(panelIssuesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelIssuesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -194,7 +214,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 .addGap(274, 274, 274))
         );
 
-        getContentPane().add(panelIssues, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 390, 240));
+        getContentPane().add(panelIssues, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 620, 240));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.setOpaque(false);
@@ -222,7 +242,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
@@ -239,7 +259,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 390, 230));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 620, 230));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel2.setOpaque(false);
@@ -290,7 +310,46 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 320, 230));
 
-        jMenu1.setText("File");
+        jLabel1.setText("Buscar bug por ID: ");
+
+        jButton1.setText("Buscar");
+
+        javax.swing.GroupLayout panelBuscarLayout = new javax.swing.GroupLayout(panelBuscar);
+        panelBuscar.setLayout(panelBuscarLayout);
+        panelBuscarLayout.setHorizontalGroup(
+            panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idBug, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(703, Short.MAX_VALUE))
+        );
+        panelBuscarLayout.setVerticalGroup(
+            panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBuscarLayout.createSequentialGroup()
+                .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(idBug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(0, 7, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 30));
+
+        jMenu1.setText("Buscar");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -300,6 +359,13 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+       panelBuscar.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -337,7 +403,10 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField idBug;
     private javax.swing.JTable issuesNaming;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -358,6 +427,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelIntro;
     private javax.swing.JPanel panelIssues;
     private javax.swing.JLabel welcome;

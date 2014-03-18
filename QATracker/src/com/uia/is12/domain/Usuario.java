@@ -10,6 +10,31 @@ public class Usuario {
     private String name;
     private String lastname;
     private int edad;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Usuario(String username, String password, String name, String lastname, int edad, int id) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.lastname = lastname;
+        this.edad = edad;
+        this.id = id;
+    }
+    public Usuario(String username, String password, String name, String lastname, int edad) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.lastname = lastname;
+        this.edad = edad;
+    }
 
     public Usuario() {
         

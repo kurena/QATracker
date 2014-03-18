@@ -2,14 +2,23 @@
 
 package com.uia.is12.business;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
 import com.uia.is12.data.IssueDAO;
 import com.uia.is12.data.UsuarioDAO;
 import com.uia.is12.domain.Issue;
 import com.uia.is12.domain.Usuario;
+import com.uia.is12.view.QATrackerCreateIssue;
+import java.awt.Image;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class QATrackerBusiness {
@@ -81,6 +90,9 @@ public class QATrackerBusiness {
         return exist;
     }
     
+    /**
+     * Devuelve los issues del usuario conectado
+    */
     public ArrayList<Issue> returnIssuesFromCurrentUser() {
         ArrayList<Issue> issues = new ArrayList();
         try {
@@ -89,5 +101,64 @@ public class QATrackerBusiness {
             Logger.getLogger(QATrackerBusiness.class.getName()).log(Level.SEVERE, null, ex);
         }
         return issues;
+    }
+    /**
+     * hace un resize de la imagen
+     * @param sourceFile
+     * @param destinationFile
+     */
+    public void copyFile(File sourceFile, File destinationFile) {
+         try {
+             FileInputStream fileInputStream = new FileInputStream(sourceFile);
+             FileOutputStream fileOutputStream = new FileOutputStream(destinationFile);
+
+             int bufferSize;
+             byte[] bufffer = new byte[512];
+             while ((bufferSize = fileInputStream.read(bufffer)) > 0) {
+                     fileOutputStream.write(bufffer, 0, bufferSize);
+             }
+             fileInputStream.close();
+             fileOutputStream.close();
+        } catch (Exception e) {
+                 e.printStackTrace();
+        }
+
+    }
+    /**
+     * hace un resize de la imagen
+     * @param width
+     * @param height
+     * @param selector
+=
+     * @return 
+     * @throws java.io.IOException    */
+    public Image getImage(int width, int height, File selector) throws IOException{
+        Image img = ImageIO.read(selector);
+        Image resizedImage = img.getScaledInstance(width, height, WIDTH + 10);
+        return resizedImage;
+    }
+     /**
+     * Inserta un nuevo archivo de imagen al documento
+     * @param pathFile
+     * @param filetocopy
+=    */
+    public void addOrRepalceImg(String pathFile, File filetocopy){
+        File archivo4 = new File(pathFile);
+           if (!archivo4.exists()) {
+              try {
+                   archivo4.createNewFile();
+                   new FileOutputStream(pathFile, false).close();
+              } catch (IOException ex) {
+                        Logger.getLogger(QATrackerCreateIssue.class.getName()).log(Level.SEVERE, null, ex);
+              }
+                    copyFile(filetocopy, archivo4);
+          } else {
+                    System.out.println("NOTExists");
+                }
+    }
+    
+    public ArrayList<Usuario> getCurrentUsername() throws SQLException{
+        return this.usuarioDAO.getCurrentUserID();
+        
     }
 }

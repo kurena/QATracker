@@ -16,6 +16,8 @@ public class Issue {
     private int idUserCreador;
     private int idUserAsignar;
     private int id;
+    private String nombreAsignador;
+    private String nombreCreador;
 
     public int getId() {
         return id;
@@ -23,6 +25,16 @@ public class Issue {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Issue(String name, String description, int idUserCreador, int idUserAsignar, int id, String nombreCreador, String nombreAsignador) {
+        this.name = name;
+        this.description = description;
+        this.idUserCreador = idUserCreador;
+        this.idUserAsignar = idUserAsignar;
+        this.id = id;
+        this.nombreAsignador = nombreAsignador;
+        this.nombreCreador = nombreCreador;
     }
 
     public Issue(String name, String description, int idUserCreador, int idUserAsignar, int id) {
@@ -37,12 +49,37 @@ public class Issue {
         return name;
     }
 
+    public Issue(String name, String description, int idUserCreador, int idUserAsignar, String nombreAsignador, String nombreCreador) {
+        this.name = name;
+        this.description = description;
+        this.idUserCreador = idUserCreador;
+        this.idUserAsignar = idUserAsignar;
+        this.nombreAsignador = nombreAsignador;
+        this.nombreCreador = nombreCreador;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getNombreAsignador() {
+        return nombreAsignador;
+    }
+
+    public void setNombreAsignador(String nombreAsignador) {
+        this.nombreAsignador = nombreAsignador;
+    }
+
+    public String getNombreCreador() {
+        return nombreCreador;
+    }
+
+    public void setNombreCreador(String nombreCreador) {
+        this.nombreCreador = nombreCreador;
     }
 
     public void setDescription(String description) {

@@ -45,10 +45,37 @@ public class UsuarioDAO {
     }
     
     public String getUser() {
+        user = "kurena";
         return user;
     }
 
     public void setUser(String user) {
         UsuarioDAO.user = user;
+    }
+    
+    public ArrayList<Usuario> getCurrentUserID() throws SQLException{
+        ArrayList<Usuario> user = new ArrayList();
+        int id = -1;
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * from user WHERE username='"+getUser()+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        if(res.next()){
+            user.add(new Usuario(res.getString("username"), res.getString("password"), res.getString("name"),res.getString("lastname"), res.getInt("age"), res.getInt("iduser")));
+        }
+        mysqlDB.closeExecuteQuery();
+        return user;
+    }
+    
+    public ArrayList<Usuario> getAllUsers() throws SQLException{
+        ArrayList<Usuario> user = new ArrayList();
+        int id = -1;
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * from user";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        if(res.next()){
+            user.add(new Usuario(res.getString("username"), res.getString("password"), res.getString("name"),res.getString("lastname"), res.getInt("age"), res.getInt("iduser")));
+        }
+        mysqlDB.closeExecuteQuery();
+        return user;
     }
 }
