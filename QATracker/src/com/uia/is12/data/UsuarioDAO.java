@@ -45,7 +45,7 @@ public class UsuarioDAO {
     }
     
     public String getUser() {
-        user = "kurena";
+//        user = "test";
         return user;
     }
 
@@ -54,28 +54,26 @@ public class UsuarioDAO {
     }
     
     public ArrayList<Usuario> getCurrentUserID() throws SQLException{
-        ArrayList<Usuario> user = new ArrayList();
-        int id = -1;
+        ArrayList<Usuario> currentUser = new ArrayList();
         mysqlDB = new MySQLDB();
         String sql = "SELECT * from user WHERE username='"+getUser()+"'";
         ResultSet res = mysqlDB.executeQuery(sql);
-        if(res.next()){
-            user.add(new Usuario(res.getString("username"), res.getString("password"), res.getString("name"),res.getString("lastname"), res.getInt("age"), res.getInt("iduser")));
+        while(res.next()){
+            currentUser.add(new Usuario(res.getString("username"), res.getString("password"), res.getString("name"),res.getString("lastname"), res.getInt("age"), res.getInt("iduser")));
         }
         mysqlDB.closeExecuteQuery();
-        return user;
+        return currentUser;
     }
     
     public ArrayList<Usuario> getAllUsers() throws SQLException{
-        ArrayList<Usuario> user = new ArrayList();
-        int id = -1;
+        ArrayList<Usuario> allUsers = new ArrayList();
         mysqlDB = new MySQLDB();
-        String sql = "SELECT * from user";
+        String sql = "SELECT * FROM user";
         ResultSet res = mysqlDB.executeQuery(sql);
-        if(res.next()){
-            user.add(new Usuario(res.getString("username"), res.getString("password"), res.getString("name"),res.getString("lastname"), res.getInt("age"), res.getInt("iduser")));
+        while(res.next()){
+            allUsers.add(new Usuario(res.getString("username"), res.getString("password"), res.getString("name"),res.getString("lastname"), res.getInt("age"), res.getInt("iduser")));
         }
         mysqlDB.closeExecuteQuery();
-        return user;
+        return allUsers;
     }
 }

@@ -7,6 +7,7 @@
 package com.uia.is12.view;
 
 import com.uia.is12.business.QATrackerBusiness;
+import com.uia.is12.domain.Issue;
 import com.uia.is12.domain.Usuario;
 import com.uia.is12.panel.QAGradient;
 import java.awt.BorderLayout;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.print.event.PrintJobEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -29,11 +31,12 @@ import javax.swing.JOptionPane;
  * @author raiam.quesada.urena
  */
 public class QATrackerCreateIssue extends javax.swing.JFrame {
-    private QATrackerBusiness qabusiness = new QATrackerBusiness();
-    private static String path=System.getProperty("user.dir")+"\\src\\com\\uia\\is12\\Images\\images\\";
+    private final QATrackerBusiness qabusiness = new QATrackerBusiness();
+    private static final String path=System.getProperty("user.dir")+"\\src\\com\\uia\\is12\\Images\\images\\";
     private String pathFile="";
     private File fileToCopy;
     private boolean flag = false;
+    private ArrayList<Usuario> user,usersToAssign;
     /**
      * Creates new form QATrackerCreateIssue
      */
@@ -48,13 +51,23 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         this.setLayout(new BorderLayout());
         this.add(as, BorderLayout.CENTER);}
     
-    public void fillCheckBoxes(){
-        ArrayList<Usuario> user = new ArrayList();
+    private void fillCheckBoxes(){
+
+        String personas [];
+        int cont=0;
         try {
             user = qabusiness.getCurrentUsername();
-            for(Usuario users:user){
-                JOptionPane.showMessageDialog(cargarImagen,users.getName());
+            usersToAssign = qabusiness.getAllUsername();
+            personas = new String[usersToAssign.size()];
+            for(Usuario users:user){ 
+                creador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { users.getUsername() }));
             }
+            for(Usuario usersAll: usersToAssign){
+                System.out.println(usersAll.getUsername());
+                personas[cont] = usersAll.getUsername();
+                cont++;
+            }
+                asignador.setModel(new javax.swing.DefaultComboBoxModel(personas));
         } catch (SQLException ex) {
             Logger.getLogger(QATrackerCreateIssue.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,7 +99,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         creador = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        asignador = new javax.swing.JComboBox();
         jSeparator2 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -143,11 +156,12 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         jLabel5.setText("Creador:");
 
         creador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        creador.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel6.setText("Asignar a:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        asignador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("Limpiar");
 
@@ -185,8 +199,8 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                                 .addComponent(creador, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(asignador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 16, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -216,7 +230,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(asignador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -302,6 +316,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox asignador;
     private javax.swing.JButton cargarImagen;
     private javax.swing.JComboBox creador;
     private javax.swing.JTextArea descripcion;
@@ -309,7 +324,6 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -325,11 +339,22 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void validarFiels() {
-        
+        String filePath="";
+        Issue issue;
         if((!"".equals(nombre.getText()) && (!"".equals(descripcion.getText())))){
             if(flag){
-                qabusiness.addOrRepalceImg(pathFile,fileToCopy);        
+                qabusiness.addOrRepalceImg(pathFile,fileToCopy);
+                filePath = pathFile;
+            } 
+            issue = new Issue(nombre.getText(), descripcion.getText(), user.get(0).getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), user.get(0).getUsername(), filePath);
+            JOptionPane.showMessageDialog(this, "Nombre del issue: "+issue.getName()+" descirpcion del issue: "+issue.getDescription()+" IDcreador: "+issue.getIdUserCreador()+" idAsigandor: "+issue.getIdUserAsignar()+" nombreCreador: "+issue.getNombreCreador()+" IdCreador: "+issue.getIdUserAsignar()+" path: "+issue.getAttachment());
+            try {
+                qabusiness.createIssue(issue);
+                JOptionPane.showMessageDialog(this, "Los datos se han agregado correctamente", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(QATrackerCreateIssue.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }
 }

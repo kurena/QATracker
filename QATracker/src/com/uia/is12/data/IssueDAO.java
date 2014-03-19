@@ -23,7 +23,8 @@ public class IssueDAO {
         
        public void insertarDatos(Issue issue) throws SQLException{
         mysqlDB = new MySQLDB();
-        String sql = "INSERT INTO issue (name, description, issuecol, idUserCreador,idUserAsignar) VALUES ('"+issue.getName()+"', '"+issue.getDescription()+"', 'null',"+issue.getIdUserCreador()+", '"+issue.getIdUserAsignar()+"'";
+        System.out.println("test");
+        String sql = "INSERT INTO issue (name, description, issuecol, idUserCreador, idUserAsignar,path) VALUES ('"+issue.getName()+"', '"+issue.getDescription()+"', 'null',"+issue.getIdUserCreador()+", "+issue.getIdUserAsignar()+",'"+issue.getAttachment()+"'";
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     }

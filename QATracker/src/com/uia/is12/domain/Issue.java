@@ -18,6 +18,26 @@ public class Issue {
     private int id;
     private String nombreAsignador;
     private String nombreCreador;
+    private String attachment;
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
+
+    public Issue(String name, String description, int idUserCreador, int idUserAsignar, int id, String nombreAsignador, String nombreCreador, String attachment) {
+        this.name = name;
+        this.description = description;
+        this.idUserCreador = idUserCreador;
+        this.idUserAsignar = idUserAsignar;
+        this.id = id;
+        this.nombreAsignador = nombreAsignador;
+        this.nombreCreador = nombreCreador;
+        this.attachment = attachment;
+    }
 
     public int getId() {
         return id;

@@ -156,9 +156,45 @@ public class QATrackerBusiness {
                     System.out.println("NOTExists");
                 }
     }
-    
+     /**
+     * Retorna el perfil del usuario loggeado
+     * @return 
+     * @throws java.sql.SQLException
+     */
     public ArrayList<Usuario> getCurrentUsername() throws SQLException{
-        return this.usuarioDAO.getCurrentUserID();
-        
+        return this.usuarioDAO.getCurrentUserID();   
+    }
+    
+    /**
+     * Retorna el perfil de todos los usuarios
+     * @return 
+     * @throws java.sql.SQLException
+     */
+    public ArrayList<Usuario> getAllUsername() throws SQLException{
+        return usuarioDAO.getAllUsers();
+    }
+    /**
+     * Crea un nuevo Issue
+     * @param issue
+     * @throws java.sql.SQLException
+     */
+    public void createIssue(Issue issue) throws SQLException{
+        issueDAO.insertarDatos(issue);
+    }
+     /**
+     * Crea un nuevo Issue
+     * @param arreglo
+     * @param username
+     * @return 
+     */
+    public int getAsignadorID(ArrayList<Usuario> arreglo, String username){
+        int id=-1;
+        for(Usuario userAsignee: arreglo){
+            if(userAsignee.getUsername().equals(username)){
+                id=userAsignee.getId();
+                break;
+            }
+        }
+        return id;
     }
 }
