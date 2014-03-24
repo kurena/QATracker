@@ -20,7 +20,7 @@ public class MySQLDB {
     public MySQLDB() {
         
     }
-    
+       
     public ResultSet executeQuery(String sql) throws SQLException{
         con = DriverManager.getConnection(DB_URL,USER,PASSWORD);
         cstmt = con.prepareCall(sql);

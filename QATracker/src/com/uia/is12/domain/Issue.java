@@ -15,7 +15,7 @@ public class Issue {
     private String description;
     private int idUserCreador;
     private int idUserAsignar;
-    private int id;
+    private int id = -1;
     private String nombreAsignador;
     private String nombreCreador;
     private String attachment;

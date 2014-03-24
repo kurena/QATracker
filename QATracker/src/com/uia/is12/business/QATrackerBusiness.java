@@ -92,6 +92,7 @@ public class QATrackerBusiness {
     
     /**
      * Devuelve los issues del usuario conectado
+     * @return 
     */
     public ArrayList<Issue> returnIssuesFromCurrentUser() {
         ArrayList<Issue> issues = new ArrayList();
@@ -103,7 +104,7 @@ public class QATrackerBusiness {
         return issues;
     }
     /**
-     * hace un resize de la imagen
+     * crea un nuevo archivo
      * @param sourceFile
      * @param destinationFile
      */
@@ -182,7 +183,7 @@ public class QATrackerBusiness {
         issueDAO.insertarDatos(issue);
     }
      /**
-     * Crea un nuevo Issue
+     * Obtener el ID del usuaro al que se envian
      * @param arreglo
      * @param username
      * @return 
@@ -196,5 +197,13 @@ public class QATrackerBusiness {
             }
         }
         return id;
+    }
+    
+    public boolean searchIDIssue(int id) throws SQLException{
+        if(issueDAO.search(id).getId() !=-1){
+            return false;
+        } else {
+            return true;
+        }
     }
 }

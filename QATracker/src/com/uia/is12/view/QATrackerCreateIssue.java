@@ -163,7 +163,12 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
 
         asignador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Limpiar");
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Agregar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -280,6 +285,10 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         validarFiels();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        backDashboard();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,14 +356,21 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                 filePath = pathFile;
             } 
             issue = new Issue(nombre.getText(), descripcion.getText(), user.get(0).getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), user.get(0).getUsername(), filePath);
-            JOptionPane.showMessageDialog(this, "Nombre del issue: "+issue.getName()+" descirpcion del issue: "+issue.getDescription()+" IDcreador: "+issue.getIdUserCreador()+" idAsigandor: "+issue.getIdUserAsignar()+" nombreCreador: "+issue.getNombreCreador()+" IdCreador: "+issue.getIdUserAsignar()+" path: "+issue.getAttachment());
             try {
                 qabusiness.createIssue(issue);
                 JOptionPane.showMessageDialog(this, "Los datos se han agregado correctamente", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
+                backDashboard();
             } catch (SQLException ex) {
                 Logger.getLogger(QATrackerCreateIssue.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
     }
+    
+    private void backDashboard(){
+        new QATrackerDashboard().setVisible(true);
+        this.dispose();
+    }
+    
+    
 }

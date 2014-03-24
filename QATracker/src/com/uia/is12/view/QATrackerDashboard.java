@@ -110,6 +110,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
@@ -313,6 +314,11 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jLabel1.setText("Buscar bug por ID: ");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBuscarLayout = new javax.swing.GroupLayout(panelBuscar);
         panelBuscar.setLayout(panelBuscarLayout);
@@ -358,6 +364,15 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 jMenu2MouseClicked(evt);
             }
         });
+
+        jMenuItem1.setText("Ver ");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -376,6 +391,27 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         new QATrackerCreateIssue().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            Boolean res=qaTrackerBusiness.searchIDIssue(Integer.parseInt(idBug.getText()));
+            if(res){
+                new QATrackerViewIssue().setVisible(true);
+                this.dispose();
+            }
+            else 
+            {
+                JOptionPane.showMessageDialog(this, "No hemos encontrado el Issue con el ID: "+idBug.getText(), "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
+            }
+       //     res? new QATrackerCreateIssue():JOptionPane.showMessageDialog(this, "El ID que intestaste buscar no existe!", "No existe", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,6 +460,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

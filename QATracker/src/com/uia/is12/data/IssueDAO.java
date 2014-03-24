@@ -23,8 +23,8 @@ public class IssueDAO {
         
        public void insertarDatos(Issue issue) throws SQLException{
         mysqlDB = new MySQLDB();
-        System.out.println("test");
-        String sql = "INSERT INTO issue (name, description, issuecol, idUserCreador, idUserAsignar,path) VALUES ('"+issue.getName()+"', '"+issue.getDescription()+"', 'null',"+issue.getIdUserCreador()+", "+issue.getIdUserAsignar()+",'"+issue.getAttachment()+"'";
+        issue.setAttachment(issue.getAttachment().replaceAll("\\\\", "\\\\\\\\"));
+        String sql = "INSERT INTO issue(name, description, idUserCreador, idUserAsignar,path) VALUES ('"+issue.getName()+"', '"+issue.getDescription()+"','"+issue.getIdUserCreador()+"', '"+issue.getIdUserAsignar()+"','"+issue.getAttachment()+"')";
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     }
@@ -36,6 +36,18 @@ public class IssueDAO {
         ResultSet res = mysqlDB.executeQuery(sql);
         while(res.next()){
             arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username")));
+        }
+        mysqlDB.closeExecuteQuery();
+        return arreglo;
+    }
+    public Issue search(int id) throws SQLException{
+        Issue arreglo = new Issue();
+        System.out.println(arreglo.getId());
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * from issue m, user u,user us WHERE iduser="+id+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            arreglo = new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username"));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
