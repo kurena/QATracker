@@ -182,6 +182,10 @@ public class QATrackerBusiness {
     public void createIssue(Issue issue) throws SQLException{
         issueDAO.insertarDatos(issue);
     }
+    
+    public void actualizarIssue(int id,Issue issue) throws SQLException{
+        issueDAO.updateData(id, issue);
+    }
      /**
      * Obtener el ID del usuaro al que se envian
      * @param arreglo
@@ -198,12 +202,28 @@ public class QATrackerBusiness {
         }
         return id;
     }
+    public Issue getIDIssue(int id) throws SQLException{
+        System.out.println("attachment"+issueDAO.search(id).getAttachment());
+        return issueDAO.search(id);
+    }
     
     public boolean searchIDIssue(int id) throws SQLException{
-        if(issueDAO.search(id).getId() !=-1){
+        if(issueDAO.search(id).getId() ==-1){
             return false;
         } else {
             return true;
         }
+    }
+    
+    public int returnIndex(ArrayList<Usuario> usuarios, String nombre){
+        int id=-1;
+        int cont=0;
+        for(Usuario usuario:usuarios){
+            if(usuario.getUsername().equals(nombre)){
+                id=cont;
+            }
+            cont++;
+        }
+        return id;
     }
 }

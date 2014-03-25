@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
  */
 public class QATrackerCreateIssue extends javax.swing.JFrame {
     private final QATrackerBusiness qabusiness = new QATrackerBusiness();
-    private static final String path=System.getProperty("user.dir")+"\\src\\com\\uia\\is12\\Images\\images\\";
+    public static final String path=System.getProperty("user.dir")+"\\src\\com\\uia\\is12\\Images\\images\\";
     private String pathFile="";
     private File fileToCopy;
     private boolean flag = false;
@@ -63,7 +63,6 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                 creador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { users.getUsername() }));
             }
             for(Usuario usersAll: usersToAssign){
-                System.out.println(usersAll.getUsername());
                 personas[cont] = usersAll.getUsername();
                 cont++;
             }
@@ -138,6 +137,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         jLabel3.setText("Descripcion:");
 
         descripcion.setColumns(20);
+        descripcion.setLineWrap(true);
         descripcion.setRows(5);
         descripcion.setWrapStyleWord(true);
         jScrollPane1.setViewportView(descripcion);
@@ -145,7 +145,9 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel4.setText("Cargar Imagen:");
 
-        cargarImagen.setText("Cargar");
+        cargarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/cargar.png"))); // NOI18N
+        cargarImagen.setBorderPainted(false);
+        cargarImagen.setContentAreaFilled(false);
         cargarImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cargarImagenActionPerformed(evt);
@@ -163,14 +165,18 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
 
         asignador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Volver");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/volver.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Agregar");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/guardarHover.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -210,9 +216,9 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72))
         );
         jPanel1Layout.setVerticalGroup(
@@ -237,10 +243,10 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(asignador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(cargarImagen))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cargarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,7 +263,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cargarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarImagenActionPerformed
-        int returnVal = fileChooser.showOpenDialog(QATrackerCreateIssue.this);
+        fileChooser.showOpenDialog(QATrackerCreateIssue.this);
     }//GEN-LAST:event_cargarImagenActionPerformed
 
     private void fileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileChooserActionPerformed

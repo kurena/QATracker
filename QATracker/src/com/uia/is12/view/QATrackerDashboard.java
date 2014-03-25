@@ -53,8 +53,8 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             modelo.addColumn("Usuario Creador");
             modelo.addColumn("Usuario a Resolver");
             for(Issue issue: issues){
-                datos[4]=issue.getNombreAsignador();
-                datos[3]=issue.getNombreCreador();
+                datos[4]=issue.getNombreCreador();
+                datos[3]=issue.getNombreAsignador();
                 datos[2]=issue.getDescription();
                 datos[1]=issue.getName();
                 datos[0]=String.valueOf(issue.getId());
@@ -120,7 +120,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         welcome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         welcome.setText("Bienvenido: ");
-        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 360, 40));
+        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 360, 40));
 
         panelIntro.setBackground(new java.awt.Color(255, 255, 255));
         panelIntro.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -313,7 +313,9 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar bug por ID: ");
 
-        jButton1.setText("Buscar");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/cargar.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -331,19 +333,20 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 .addComponent(idBug, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(703, Short.MAX_VALUE))
+                .addContainerGap(659, Short.MAX_VALUE))
         );
         panelBuscarLayout.setVerticalGroup(
             panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBuscarLayout.createSequentialGroup()
+            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBuscarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(idBug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(0, 7, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addContainerGap())
         );
 
-        getContentPane().add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 30));
+        getContentPane().add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 40));
 
         jMenu1.setText("Buscar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -397,10 +400,12 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Boolean res=qaTrackerBusiness.searchIDIssue(Integer.parseInt(idBug.getText()));
+        
+        int id = Integer.parseInt(idBug.getText());
+           try {
+            Boolean res=qaTrackerBusiness.searchIDIssue(id);
             if(res){
-                new QATrackerViewIssue().setVisible(true);
+                new QATrackerViewIssue(qaTrackerBusiness.getIDIssue(id)).setVisible(true);
                 this.dispose();
             }
             else 

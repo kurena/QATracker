@@ -35,19 +35,18 @@ public class IssueDAO {
         String sql = "SELECT * from issue m, user u,user us WHERE idUserCreador="+getUserID()+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
         ResultSet res = mysqlDB.executeQuery(sql);
         while(res.next()){
-            arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username")));
+            arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username"),res.getString("path")));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
     }
     public Issue search(int id) throws SQLException{
         Issue arreglo = new Issue();
-        System.out.println(arreglo.getId());
         mysqlDB = new MySQLDB();
-        String sql = "SELECT * from issue m, user u,user us WHERE iduser="+id+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
+        String sql = "SELECT * from issue m, user u,user us WHERE m.idissue="+id+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
         ResultSet res = mysqlDB.executeQuery(sql);
         while(res.next()){
-            arreglo = new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username"));
+            arreglo = new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username"), res.getString("path"));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
@@ -62,6 +61,15 @@ public class IssueDAO {
             id = res.getInt("iduser");
         }
         return id;
+    }
+    
+    public void updateData(int id, Issue issue) throws SQLException{
+        mysqlDB = new MySQLDB();
+        issue.setAttachment(issue.getAttachment().replaceAll("\\\\", "\\\\\\\\"));
+        System.out.println(issue.getIdUserAsignar());
+        String sql="UPDATE issue SET name='"+issue.getName()+"',description='"+issue.getDescription()+"', idUserAsignar='"+issue.getIdUserAsignar()+"', path='"+issue.getAttachment()+"' WHERE idissue='"+id+"'";
+        mysqlDB.execute(sql);
+        mysqlDB.closeExecute();
     }
     
 }
