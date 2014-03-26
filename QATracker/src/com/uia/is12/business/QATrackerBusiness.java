@@ -3,10 +3,8 @@
 package com.uia.is12.business;
 
 import com.sun.corba.se.spi.orbutil.fsm.Input;
-import com.uia.is12.data.IssueDAO;
-import com.uia.is12.data.UsuarioDAO;
-import com.uia.is12.domain.Issue;
-import com.uia.is12.domain.Usuario;
+import com.uia.is12.data.*;
+import com.uia.is12.domain.*;
 import com.uia.is12.view.QATrackerCreateIssue;
 import java.awt.Image;
 import static java.awt.image.ImageObserver.WIDTH;
@@ -25,10 +23,12 @@ public class QATrackerBusiness {
     private UsuarioDAO usuarioDAO;
     private String user;
     private IssueDAO issueDAO;
+    private ProyectoDAO proyectoDAO;
     
     public QATrackerBusiness() {
         this.usuarioDAO = new UsuarioDAO();
         this.issueDAO = new IssueDAO();
+        this.proyectoDAO = new ProyectoDAO();
     }
     
     /**
@@ -183,6 +183,11 @@ public class QATrackerBusiness {
         issueDAO.insertarDatos(issue);
     }
     
+    public void createProyect(Proyecto proyecto) throws SQLException{
+        proyectoDAO.insertar(proyecto);
+        proyectoDAO.insertarArregloUsuarios(proyecto);
+    }
+    
     public void actualizarIssue(int id,Issue issue) throws SQLException{
         issueDAO.updateData(id, issue);
     }
@@ -202,6 +207,19 @@ public class QATrackerBusiness {
         }
         return id;
     }
+    public ArrayList<Integer> getAsignadorIDArreglo(ArrayList<Usuario> arreglo, ArrayList<String>usernames){
+        ArrayList<Integer> usuarios = new ArrayList();
+        for(Usuario userAsignee: arreglo){
+            for(String i : usernames){
+                if(userAsignee.getUsername().equals(i)){
+                    usuarios.add(userAsignee.getId());
+                }
+            }
+            
+        }
+        return usuarios;
+    }
+    
     public Issue getIDIssue(int id) throws SQLException{
         System.out.println("attachment"+issueDAO.search(id).getAttachment());
         return issueDAO.search(id);
