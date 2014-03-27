@@ -45,7 +45,6 @@ public class UsuarioDAO {
     }
     
     public String getUser() {
-//        user = "test";
         return user;
     }
 
@@ -75,5 +74,17 @@ public class UsuarioDAO {
         }
         mysqlDB.closeExecuteQuery();
         return allUsers;
+    }
+    
+    public int getIDByUsername(String Username) throws SQLException{
+        int id=-1;
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * FROM user WHERE username='"+Username+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            id=res.getInt("iduser");
+        }
+        mysqlDB.closeExecuteQuery();
+        return id;
     }
 }

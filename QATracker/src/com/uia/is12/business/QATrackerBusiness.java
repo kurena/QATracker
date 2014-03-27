@@ -207,6 +207,8 @@ public class QATrackerBusiness {
         }
         return id;
     }
+    
+    
     public ArrayList<Integer> getAsignadorIDArreglo(ArrayList<Usuario> arreglo, ArrayList<String>usernames){
         ArrayList<Integer> usuarios = new ArrayList();
         for(Usuario userAsignee: arreglo){
@@ -231,6 +233,16 @@ public class QATrackerBusiness {
         } else {
             return true;
         }
+    }
+    /**
+     * Obtener el ID del usuario por medio del username
+     * @param username
+     * @return 
+     */
+    public int getIdFromUsername(String username) throws SQLException{
+        int id=-1;
+         id = usuarioDAO.getIDByUsername(username);
+        return id;
     }
     
     public int returnIndex(ArrayList<Usuario> usuarios, String nombre){

@@ -21,6 +21,12 @@ public class Proyecto {
         this.idUserCreador = idUserCreador;
     }
 
+    public Proyecto(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+    
+
     public int getId() {
         return id;
     }
