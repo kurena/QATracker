@@ -22,13 +22,15 @@ import javax.swing.JOptionPane;
 public class QATrackerBusiness {
     private UsuarioDAO usuarioDAO;
     private String user;
-    private IssueDAO issueDAO;
-    private ProyectoDAO proyectoDAO;
+    private final IssueDAO issueDAO;
+    private final ProyectoDAO proyectoDAO;
+    private final TareaDAO tareaDAO;
     
     public QATrackerBusiness() {
         this.usuarioDAO = new UsuarioDAO();
         this.issueDAO = new IssueDAO();
         this.proyectoDAO = new ProyectoDAO();
+        this.tareaDAO = new TareaDAO();
     }
     
     /**
@@ -223,7 +225,7 @@ public class QATrackerBusiness {
     }
     
     public Issue getIDIssue(int id) throws SQLException{
-        System.out.println("attachment"+issueDAO.search(id).getAttachment());
+        System.out.println("CreadorDAO:"+issueDAO.search(id).getNombreCreador());
         return issueDAO.search(id);
     }
     
@@ -244,7 +246,12 @@ public class QATrackerBusiness {
          id = usuarioDAO.getIDByUsername(username);
         return id;
     }
-    
+    /**
+     * Obtener el la posicion del nombre en relacion con el arrelo
+     * @param usuarios
+     * @param nombre
+     * @return 
+     */
     public int returnIndex(ArrayList<Usuario> usuarios, String nombre){
         int id=-1;
         int cont=0;
@@ -255,5 +262,9 @@ public class QATrackerBusiness {
             cont++;
         }
         return id;
+    }
+    
+    public void createTask(Tarea tarea) throws SQLException{
+        tareaDAO.insertTarea(tarea);
     }
 }

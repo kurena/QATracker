@@ -30,7 +30,7 @@ public class IssueDAO {
     }
     
     public ArrayList<Issue> search() throws SQLException{
-        ArrayList<Issue> arreglo = new ArrayList<Issue>();
+        ArrayList<Issue> arreglo = new ArrayList();
         mysqlDB = new MySQLDB();
         String sql = "SELECT * from issue m, user u,user us WHERE idUserCreador="+getUserID()+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
         ResultSet res = mysqlDB.executeQuery(sql);
@@ -46,7 +46,9 @@ public class IssueDAO {
         String sql = "SELECT * from issue m, user u,user us WHERE m.idissue="+id+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
         ResultSet res = mysqlDB.executeQuery(sql);
         while(res.next()){
-            arreglo = new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username"), res.getString("path"));
+            System.out.println("Primer Username: "+res.getString("u.username"));
+            System.out.println("Segundo username: "+res.getString("us.username"));
+            arreglo = new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("us.username"),res.getString("u.username"), res.getString("path"));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
