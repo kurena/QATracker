@@ -62,16 +62,24 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
         }
     }
     
-    private void validarFiels() {
+    private void validarFiels() throws SQLException {
         String filePath="";
         Proyecto proyecto;
         //if(("".equals(nombre.getText()) && ("".equals(descripcion.getText())))){
             int[] selectedIx = asignador.getSelectedIndices();
             Object sel;
+            proyecto = new Proyecto(nombre.getText(), descripcion.getText());
+            ArrayList<Integer> arregloIds = new ArrayList();
             for (int i=0; i<selectedIx.length; i++) {
                 sel = asignador.getModel().getElementAt(selectedIx[i]);
+                try {
+                    arregloIds.add(qabusiness.getIdFromUsername(sel.toString()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(QATrackerCreateProyect.class.getName()).log(Level.SEVERE, null, ex);
+                } 
             } 
-            proyecto = new Proyecto(nombre.getText(), descripcion.getText(), qabusiness.getAsignadorIDArreglo(usersToAssign, sel.value()));
+            proyecto.setIdsUsuariosIncluidos(arregloIds);
+            proyecto.setIdUserCreador(qabusiness.getIdFromUsername(qabusiness.getLoggedUser()));
             try {
                 qabusiness.createProyect(proyecto);
                 JOptionPane.showMessageDialog(this, "Los datos se han agregado correctamente", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
@@ -79,8 +87,6 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(QATrackerCreateIssue.class.getName()).log(Level.SEVERE, null, ex);
             }
-       // }
-        
     }
     private void backDashboard(){
         new QATrackerDashboard().setVisible(true);
@@ -140,6 +146,11 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
         guardar.setBorderPainted(false);
         guardar.setContentAreaFilled(false);
         guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
 
         asignador.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -171,7 +182,7 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
                                 .addGap(26, 26, 26)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3))
-                        .addContainerGap(60, Short.MAX_VALUE))
+                        .addContainerGap(70, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())))
@@ -191,8 +202,8 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
                 .addGap(146, 146, 146))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(680, Short.MAX_VALUE)
-                    .addComponent(creador, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(669, Short.MAX_VALUE)
+                    .addComponent(creador, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(60, 60, 60)))
         );
         layout.setVerticalGroup(
@@ -214,7 +225,7 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,6 +245,14 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        try {
+            validarFiels();
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerCreateProyect.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_guardarActionPerformed
 
     /**
      * @param args the command line arguments

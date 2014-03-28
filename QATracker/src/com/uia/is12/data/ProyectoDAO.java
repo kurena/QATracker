@@ -19,8 +19,9 @@ public class ProyectoDAO {
      */
     public void insertar(Proyecto proyecto) throws SQLException{
         mysqlDB = new MySQLDB();
-        String sql = "INSERT INTO proyect(name, description, idCreatorUser) VALUES ('"+proyecto.getName()+"', '"+proyecto.getDescription()+"','"+proyecto.getIdUserCreador()+"')";
         
+        String sql = "INSERT INTO proyect(name, description, idCreatorUser) VALUES ('"+proyecto.getName()+"', '"+proyecto.getDescription()+"','"+proyecto.getIdUserCreador()+"')";
+        System.out.println(proyecto.getIdUserCreador());
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     }
