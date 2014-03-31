@@ -44,6 +44,22 @@ public class UsuarioDAO {
         return returning;
     }
     
+    public ArrayList<Usuario> getCurrentUserInfo() throws SQLException{
+        return getUsers(user);
+    }
+    
+    public ArrayList<Usuario> getUsers(String id) throws SQLException{
+        ArrayList<Usuario> users = new ArrayList();
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * from user WHERE username='"+id+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            users.add(new Usuario(res.getString("username"), res.getString("password"), res.getString("name"), res.getString("name"), res.getInt("age"),res.getInt("iduser")));
+        }
+        mysqlDB.closeExecuteQuery();
+        return users;
+    }
+    
     public String getUser() {
         return user;
     }
@@ -86,5 +102,17 @@ public class UsuarioDAO {
         }
         mysqlDB.closeExecuteQuery();
         return id;
+    }
+    
+    public String getUsernameByID(int id) throws SQLException{
+        String Username ="";
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * FROM user WHERE iduser='"+id+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            Username = res.getString("username");
+        }
+        mysqlDB.closeExecuteQuery();
+        return Username;
     }
 }

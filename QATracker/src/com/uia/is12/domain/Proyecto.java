@@ -9,6 +9,23 @@ public class Proyecto {
     private String name;
     private String description;
     private int idUserCreador;
+    private String nombreUserCreador;
+
+    public Proyecto(String name, String description, int idUserCreador, String nombreUserCreador,int id) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.idUserCreador = idUserCreador;
+        this.nombreUserCreador = nombreUserCreador;
+    }
+
+    public String getNombreUserCreador() {
+        return nombreUserCreador;
+    }
+
+    public void setNombreUserCreador(String nombreUserCreador) {
+        this.nombreUserCreador = nombreUserCreador;
+    }
     ArrayList<Integer> idsUsuariosIncluidos = new ArrayList();
 
     public Proyecto() {

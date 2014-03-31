@@ -20,10 +20,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class QATrackerBusiness {
-    private UsuarioDAO usuarioDAO;
+    private final UsuarioDAO usuarioDAO;
     private String user;
     private final IssueDAO issueDAO;
-    private final ProyectoDAO proyectoDAO;
+    private ProyectoDAO proyectoDAO;
     private final TareaDAO tareaDAO;
     
     public QATrackerBusiness() {
@@ -79,6 +79,16 @@ public class QATrackerBusiness {
     public String getLoggedUser(){
         UsuarioDAO userDao = new UsuarioDAO();
         return userDao.getUser();
+    }
+    
+    /**
+     * Obtiene el nombre del usuario loggueado
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Usuario getLoggedUserInfo() throws SQLException{
+            return this.usuarioDAO.getCurrentUserInfo().get(0);
+        
     }
      /**
      * retorna true o false dependiendo de si el usuario esta conectado o no
@@ -264,7 +274,27 @@ public class QATrackerBusiness {
         return id;
     }
     
+    public String getUsernameByID(int id) throws SQLException{
+        return this.usuarioDAO.getUsernameByID(id);
+    }
+    /**
+     * Agregar una nueva tarea
+     * @param tarea
+     * @throws java.sql.SQLException
+     */
     public void createTask(Tarea tarea) throws SQLException{
         tareaDAO.insertTarea(tarea);
+    }
+    
+    public ArrayList<Proyecto> getProyectsCurrentUser() {
+        ArrayList<Proyecto> proyects = new ArrayList();
+        this.proyectoDAO = new ProyectoDAO(this);
+        try {
+            proyects = this.proyectoDAO.getProyectsCurrentUser();
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerBusiness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return proyects;
     }
 }

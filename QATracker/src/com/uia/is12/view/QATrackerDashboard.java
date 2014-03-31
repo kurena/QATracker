@@ -8,6 +8,7 @@ package com.uia.is12.view;
 
 import com.uia.is12.business.QATrackerBusiness;
 import com.uia.is12.domain.Issue;
+import com.uia.is12.domain.Proyecto;
 import com.uia.is12.panel.QAGradient;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
@@ -30,6 +31,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         initComponents();
         addPanel();
         loadPerfilStuff();
+        fillProjects();
     }
     public final void addPanel(){
         QAGradient as = new QAGradient("MAIN");
@@ -41,13 +43,13 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }
     
     private void loadPerfilStuff(){
-        welcome.setText(qaTrackerBusiness.getLoggedUser());
+        welcome.setText("Bienvenido: "+qaTrackerBusiness.getLoggedUser());
         ArrayList<Issue> issues = new ArrayList<Issue>();
         issues = qaTrackerBusiness.returnIssuesFromCurrentUser();
         DefaultTableModel modelo = new DefaultTableModel();
         if(issues.size() > 0){
             String datos[]= new String[5];
-            modelo.addColumn("ID Issue");
+            modelo.addColumn("Número de Issue");
             modelo.addColumn("Nombre");
             modelo.addColumn("Descripcion");
             modelo.addColumn("Usuario Creador");
@@ -67,11 +69,32 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             modelo.addRow(value);
             
         }
-        
-        
-        
         issuesNaming.setModel(modelo);
         
+    }
+    
+    public void fillProjects(){
+        ArrayList<Proyecto> proyects = qaTrackerBusiness.getProyectsCurrentUser();
+        DefaultTableModel modelo = new DefaultTableModel();
+
+            if(proyects.size() > 0){
+                modelo.addColumn("Número de Proyecto");modelo.addColumn("Descripcion");modelo.addColumn("Creador");
+                String datos[] = new String[3];
+                for(Proyecto project: proyects){
+                    datos[0] = String.valueOf(project.getId());
+                    datos[1] = project.getDescription();
+                    datos[2] = project.getNombreUserCreador();
+                    modelo.addRow(datos);
+                }            
+            } else{
+                String value[] = new String[1];
+                value[0]="No hay proyectos asignados a este usuario";
+                modelo.addColumn("Proyectos");
+                modelo.addRow(value);
+            }
+            
+            Proyectos.setModel(modelo);
+           
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,12 +120,12 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Proyectos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        lector = new javax.swing.JTable();
         panelBuscar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         idBug = new javax.swing.JTextField();
@@ -113,6 +136,8 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        creartarea = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
@@ -225,7 +250,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel5.setText("Proyectos creados");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        Proyectos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -236,7 +261,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(Proyectos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,7 +295,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel4.setText("Issues en los que estas de lector");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        lector.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -281,7 +306,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable3);
+        jScrollPane4.setViewportView(lector);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -291,7 +316,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                         .addGap(28, 28, 28))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -313,7 +338,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 320, 230));
 
-        jLabel1.setText("Buscar bug por ID: ");
+        jLabel1.setText("Buscar bug por número de proyecto: ");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/cargar.png"))); // NOI18N
         jButton1.setBorderPainted(false);
@@ -335,7 +360,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 .addComponent(idBug, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(659, Short.MAX_VALUE))
+                .addContainerGap(573, Short.MAX_VALUE))
         );
         panelBuscarLayout.setVerticalGroup(
             panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,14 +388,14 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Crear Issue");
+        jMenu2.setText("Issue");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu2MouseClicked(evt);
             }
         });
 
-        jMenuItem1.setText("Ver ");
+        jMenuItem1.setText("Crear");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -392,6 +417,18 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setText("Tareas");
+
+        creartarea.setText("Crear");
+        creartarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creartareaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(creartarea);
+
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -405,12 +442,12 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        new QATrackerCreateIssue().setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+       new QATrackerCreateIssue().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -435,6 +472,11 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         new QATrackerCreateProyect().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void creartareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creartareaActionPerformed
+        new QATrackerCreateTask().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_creartareaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -472,6 +514,8 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Proyectos;
+    private javax.swing.JMenuItem creartarea;
     private javax.swing.JTextField idBug;
     private javax.swing.JTable issuesNaming;
     private javax.swing.JButton jButton1;
@@ -483,6 +527,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
@@ -496,9 +541,8 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable lector;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelIntro;
     private javax.swing.JPanel panelIssues;

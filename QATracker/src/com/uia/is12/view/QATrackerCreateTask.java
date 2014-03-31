@@ -70,6 +70,8 @@ public class QATrackerCreateTask extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(this, "Los datos se han agregado correctamente", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
             backDashboard();
+        } else {
+            JOptionPane.showMessageDialog(this,"");
         }
         
     }

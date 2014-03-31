@@ -2,15 +2,28 @@
 
 package com.uia.is12.data;
 
+import com.uia.is12.business.QATrackerBusiness;
 import com.uia.is12.connections.MySQLDB;
 import com.uia.is12.domain.Proyecto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class ProyectoDAO {
     
     private MySQLDB mysqlDB;
+    private QATrackerBusiness qabusiness;
+
+    public ProyectoDAO() {
+       
+    }
+
+    public ProyectoDAO(QATrackerBusiness qabusiness) {
+        this.qabusiness = qabusiness;
+    }
+    
+    
     
     /**
      * Inserta el proyecto
@@ -53,6 +66,43 @@ public class ProyectoDAO {
             id = res.getInt("idproyect");
         }
         return id;
+    }
+    
+    /**
+     * Obtiene el id del proyecto
+     * @param proyecto
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Proyecto> getProyectsCurrentUser() throws SQLException{
+        boolean flag = false;
+        ArrayList<Proyecto> proyectos = new ArrayList();
+        ArrayList<Integer> ids = new ArrayList();
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * from proyect p JOIN userproyect u on p.idproyect = u.idproyect WHERE u.iduser='"+qabusiness.getLoggedUserInfo().getId()+"' OR p.idCreatorUser='"+qabusiness.getLoggedUserInfo().getId()+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            flag = false;
+            Proyecto proyect = new Proyecto(res.getString("name"), res.getString("description"),res.getInt("p.idCreatorUser"),qabusiness.getUsernameByID(res.getInt("p.idCreatorUser")),res.getInt("p.idproyect"));
+            System.out.println(ids.size());
+            if(ids.size()<=0){
+                flag = true;
+            } else {
+                for(int x:ids){
+                    if(res.getInt("u.idproyect")==x){
+                        flag = false;
+                        break;
+                    } else {
+                        flag = true;
+                    }
+                }
+            }
+            ids.add(res.getInt("u.idproyect"));     
+            if(flag){
+                proyectos.add(proyect);    
+            } 
+         }
+        return proyectos;
     }
     
 }
