@@ -90,7 +90,6 @@ public class IssueDAO {
         while(res.next()){
             comentarios.add(new Comentario(res.getInt("idUser"),res.getInt("idIssue"),res.getString("date"), res.getString("comment")));
         }   
-        
         return comentarios;
     }
     
@@ -99,6 +98,5 @@ public class IssueDAO {
         String sql="INSERT INTO comment(comment,idUser,date,idIssue)VALUES('"+comment+"','"+qabusiness.getIdFromUsername(qabusiness.getLoggedUser())+"','"+qabusiness.getDate()+"','"+issue.getId()+"')";
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
-    }
-    
+    } 
 }
