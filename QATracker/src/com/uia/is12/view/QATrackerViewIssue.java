@@ -72,7 +72,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         creador.setEnabled(false);
     }
     
-    public void fillBoxes(){
+    public final void fillBoxes(){
 
         String personas [];
         int cont=0;

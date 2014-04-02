@@ -463,6 +463,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(this, "No hemos encontrado el Issue con el ID: "+idBug.getText(), "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
             }
+            System.out.println(res);
         } catch (SQLException ex) {
             Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -8,6 +8,8 @@ import com.uia.is12.domain.Proyecto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ProyectoDAO {
@@ -69,8 +71,7 @@ public class ProyectoDAO {
     }
     
     /**
-     * Obtiene el id del proyecto
-     * @param proyecto
+     * Obtiene el los proyectos del usuario actual
      * @return
      * @throws SQLException 
      */
@@ -84,7 +85,6 @@ public class ProyectoDAO {
         while(res.next()){
             flag = false;
             Proyecto proyect = new Proyecto(res.getString("name"), res.getString("description"),res.getInt("p.idCreatorUser"),qabusiness.getUsernameByID(res.getInt("p.idCreatorUser")),res.getInt("p.idproyect"));
-            System.out.println(ids.size());
             if(ids.size()<=0){
                 flag = true;
             } else {
@@ -104,5 +104,29 @@ public class ProyectoDAO {
          }
         return proyectos;
     }
+    /**
+     * Obtiene  TODOS los proyectos
+     * @return
+     * @throws SQLException 
+     */
     
+    public ArrayList<Proyecto> getProjects(){
+        mysqlDB = new MySQLDB();
+        ArrayList<Proyecto> projects = new ArrayList();
+        try {
+            
+            String sql="SELECT * from proyect";
+            ResultSet res = mysqlDB.executeQuery(sql);
+            while(res.next()){
+                try {
+                    projects.add(new Proyecto(res.getString("name"), res.getString("description"),res.getInt("idCreatorUser"), qabusiness.getUsernameByID(res.getInt("idCreatorUser")), res.getInt("idproyect")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProyectoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProyectoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return projects;
+    }
 }
