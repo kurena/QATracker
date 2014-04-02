@@ -7,6 +7,7 @@
 package com.uia.is12.view;
 
 import com.uia.is12.business.QATrackerBusiness;
+import com.uia.is12.domain.Comentario;
 import com.uia.is12.domain.Issue;
 import com.uia.is12.domain.Usuario;
 import com.uia.is12.panel.QAGradient;
@@ -25,6 +26,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -50,6 +52,11 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         this.issueData = issue;
         loadAllInfo();
         fillBoxes();
+        try {
+            loadAllMessages();
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerViewIssue.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
     
@@ -65,44 +72,56 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
     
     public void disableComponents(boolean res){
         Component[] com = jPanel1.getComponents();
-        for(int x=0;x<com.length;x++){
-            com[x].setEnabled(res);
+        for (Component com1 : com) {
+            com1.setEnabled(res);
         }
         imagenField.setEnabled(true);
         creador.setEnabled(false);
     }
     
     public final void fillBoxes(){
-
         String personas [];
+        
         int cont=0;
         try {
             user = qabusiness.getCurrentUsername();
             usersToAssign = qatrackerBusiness.getAllUsername();
             personas = new String[usersToAssign.size()];
-            for(Usuario users:usersToAssign){ 
-                
+            for(Usuario users:usersToAssign){
                 personas[cont] = users.getUsername();
                 cont++;
             }
                 creador.setModel(new javax.swing.DefaultComboBoxModel(personas));
                 asignador.setModel(new javax.swing.DefaultComboBoxModel(personas));
                 asignador.setSelectedIndex(qatrackerBusiness.returnIndex(usersToAssign,this.issueData.getNombreAsignador()));
-                System.out.println("asigandor:"+this.issueData.getNombreAsignador());
-                System.out.println("creador:"+this.issueData.getNombreCreador());
                 creador.setSelectedIndex(qatrackerBusiness.returnIndex(usersToAssign,this.issueData.getNombreCreador()));
+                priority.setSelectedIndex(qatrackerBusiness.returnIndex(llenarArregloConNombres(),this.issueData.getPriority()));
+                StateCombo.setSelectedIndex(qatrackerBusiness.returnIndex(llenarArregloState(), this.issueData.getState()));
         } catch (SQLException ex) {
             Logger.getLogger(QATrackerCreateIssue.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
+    public String[] llenarArregloConNombres(){
+        String priorityArreglo[] = new String[priority.getItemCount()];
+        for(int x=0;x<priority.getItemCount();x++){
+            priorityArreglo[x] = (String) priority.getItemAt(x);
         }
-    
+        return priorityArreglo;
     }
     
+    public String[] llenarArregloState(){
+        String state[] = new String[StateCombo.getItemCount()];
+        for(int x=0;x<StateCombo.getItemCount();x++){
+            state[x] = (String) StateCombo.getItemAt(x);
+        }
+        return state;
+    }
     public final void loadAllInfo(){
         nombre.setText(this.issueData.getName());
         descripcion.setText(this.issueData.getDescription());
         if(!this.issueData.getAttachment().equals("")){
             try {
-                File archivo = new File(this.issueData.getAttachment());//selector.getSelectedFile();
+                File archivo = new File(this.issueData.getAttachment());
                 Image resizedImage=qatrackerBusiness.getImage(imagenField.getWidth(), imagenField.getHeight(), archivo);
                 imagenField.setIcon(new ImageIcon(resizedImage));
             } catch (IOException ex) {
@@ -113,6 +132,30 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         }
     }
     
+    
+    public void loadAllMessages() throws SQLException{
+        DefaultTableModel modelo = new DefaultTableModel();
+        ArrayList<Comentario> Comments = qabusiness.getComentarios(this.issueData);
+        String[] datos;
+        if(Comments.size()<=0){
+            modelo.addColumn("Comentarios");
+            datos = new String[1];
+            datos[0] = "Este Issue no posee comentarios";
+            modelo.addRow(datos);      
+        } else {
+            modelo.addColumn("Nombre");modelo.addColumn("Comentario");modelo.addColumn("Fecha");
+            datos = new String[3];
+            for(Comentario comment:Comments){
+                datos[0] = qabusiness.getUsernameByID(comment.getIdUser());
+                datos[1] = comment.getComment();
+                datos[2] = comment.getDate();
+                modelo.addRow(datos);
+            }
+        }
+        
+        
+        comments.setModel(modelo);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,10 +183,23 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         creador = new javax.swing.JComboBox();
         asignador = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        priority = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        StateCombo = new javax.swing.JComboBox();
         Volver = new javax.swing.JButton();
         actualizar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        comments = new javax.swing.JTable();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        commentArea = new javax.swing.JTextArea();
+        agregarComment = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
 
         fileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,6 +267,16 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
 
         asignador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jLabel5.setText("Prioridad:");
+
+        priority.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alta", "Media", "Baja" }));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jLabel8.setText("Estado:");
+
+        StateCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abierto", "Resuelto" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -236,12 +302,16 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(priority, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(asignador, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(creador, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addComponent(creador, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(StateCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,15 +329,23 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7)
-                                .addComponent(asignador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(asignador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(priority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(25, 25, 25)
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(StateCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jLabel4)
                     .addComponent(imagenField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -329,31 +407,110 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Comentarios"));
+        jPanel2.setOpaque(false);
+
+        comments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(comments);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        jLabel10.setText("Escribe un comentario:");
+
+        commentArea.setColumns(20);
+        commentArea.setLineWrap(true);
+        commentArea.setRows(5);
+        jScrollPane3.setViewportView(commentArea);
+
+        agregarComment.setText("Agregar");
+        agregarComment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarCommentActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                    .addComponent(jSeparator4)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(agregarComment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(agregarComment))
+                .addContainerGap())
+        );
+
+        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addComponent(jSeparator2)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(580, 580, 580)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 919, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(28, 28, 28)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,12 +523,16 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Volver, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(actualizar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Volver, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(actualizar, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addContainerGap())
         );
 
         pack();
@@ -438,6 +599,19 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_fileChooserActionPerformed
+
+    private void agregarCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCommentActionPerformed
+        if(!commentArea.getText().equals("")){
+            qabusiness.insertComment(this.issueData, commentArea.getText());
+            try {
+                loadAllMessages();
+            } catch (SQLException ex) {
+                Logger.getLogger(QATrackerViewIssue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "LLene el campo de comentario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_agregarCommentActionPerformed
     
     public ImageIcon updateImageButton(String path){
         InputStream imgStream = QATrackerView.class.getResourceAsStream(path);
@@ -494,7 +668,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                 qabusiness.addOrRepalceImg(pathFile,fileToCopy);
                 filePath = pathFile;
             } 
-            issue = new Issue(nombre.getText(), descripcion.getText(), this.issueData.getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), this.issueData.getNombreCreador(), filePath);
+            issue = new Issue(nombre.getText(), descripcion.getText(), this.issueData.getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), this.issueData.getNombreCreador(), filePath,(String) StateCombo.getSelectedItem(),(String) priority.getSelectedItem());
             try {
                 qabusiness.actualizarIssue(this.issueData.getId(),issue);
                 JOptionPane.showMessageDialog(this, "Los datos se han anctualizado", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
@@ -508,9 +682,13 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox StateCombo;
     private javax.swing.JButton Volver;
     private javax.swing.JButton actualizar;
+    private javax.swing.JButton agregarComment;
     private javax.swing.JComboBox asignador;
+    private javax.swing.JTextArea commentArea;
+    private javax.swing.JTable comments;
     private javax.swing.JComboBox creador;
     private javax.swing.JTextArea descripcion;
     private javax.swing.JFileChooser fileChooser;
@@ -519,15 +697,24 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField nombre;
+    private javax.swing.JComboBox priority;
     // End of variables declaration//GEN-END:variables
 }

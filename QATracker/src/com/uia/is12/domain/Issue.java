@@ -19,9 +19,40 @@ public class Issue {
     private String nombreAsignador;
     private String nombreCreador;
     private String attachment;
+    private String state;
+    private String priority;
 
     public String getAttachment() {
         return attachment;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public Issue(String name, String description, int idUserCreador, int idUserAsignar, int id, String nombreAsignador, String nombreCreador, String attachment, String state, String priority) {
+        this.name = name;
+        this.description = description;
+        this.idUserCreador = idUserCreador;
+        this.idUserAsignar = idUserAsignar;
+        this.nombreAsignador = nombreAsignador;
+        this.nombreCreador = nombreCreador;
+        this.attachment = attachment;
+        this.state = state;
+        this.priority = priority;
+        this.id = id;
     }
 
     public void setAttachment(String attachment) {

@@ -13,7 +13,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -28,7 +31,7 @@ public class QATrackerBusiness {
     
     public QATrackerBusiness() {
         this.usuarioDAO = new UsuarioDAO();
-        this.issueDAO = new IssueDAO();
+        this.issueDAO = new IssueDAO(this);
         this.proyectoDAO = new ProyectoDAO();
         this.tareaDAO = new TareaDAO();
     }
@@ -235,7 +238,6 @@ public class QATrackerBusiness {
     }
     
     public Issue getIDIssue(int id) throws SQLException{
-        System.out.println("CreadorDAO:"+issueDAO.search(id).getNombreCreador());
         return issueDAO.search(id);
     }
     
@@ -274,6 +276,38 @@ public class QATrackerBusiness {
         return id;
     }
     
+    /**
+     * Obtener el la posicion del nombre en relacion con el arrelo de strings
+     * @param variables
+     * @param variable
+     * @return 
+     */
+    public int returnIndex(String[] variables, String variable){
+        int value=-1;
+        for(int x=0;x<variables.length;x++){
+            if(variables[x].equals(variable)){
+                value = x;
+            }
+        }
+        return value;
+    }
+    
+    /**
+     * obtener todos los comentarios 
+     * @param issue
+     * @return 
+     */
+    public ArrayList<Comentario> getComentarios(Issue issue){
+        ArrayList<Comentario> comentarios = new ArrayList();
+        try {
+            comentarios = issueDAO.getComments(issue);
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerBusiness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return comentarios;
+    }
+    
+    
     public String getUsernameByID(int id) throws SQLException{
         return this.usuarioDAO.getUsernameByID(id);
     }
@@ -285,7 +319,10 @@ public class QATrackerBusiness {
     public void createTask(Tarea tarea) throws SQLException{
         tareaDAO.insertTarea(tarea);
     }
-    
+    /**
+     * Obtener los proyectos que el usuario posee
+     * @return 
+     */
     public ArrayList<Proyecto> getProyectsCurrentUser() {
         ArrayList<Proyecto> proyects = new ArrayList();
         this.proyectoDAO = new ProyectoDAO(this);
@@ -296,5 +333,24 @@ public class QATrackerBusiness {
         }
         
         return proyects;
+    }
+    
+    public void insertComment(Issue issue, String comment){
+        try {
+            issueDAO.insertComment(issue, comment);
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerBusiness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    /**
+     * Obtener fecha
+     */
+    public String getDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        return dateFormat.format(cal.getTime());
+       // System.out.println(dateFormat.format(cal.getTime()));
     }
 }
