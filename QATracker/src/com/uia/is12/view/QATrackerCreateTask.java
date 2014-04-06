@@ -136,6 +136,7 @@ public class QATrackerCreateTask extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         TareaTitulo.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         TareaTitulo.setText("Agregar una nueva Tarea");
@@ -273,7 +274,7 @@ public class QATrackerCreateTask extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 141, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

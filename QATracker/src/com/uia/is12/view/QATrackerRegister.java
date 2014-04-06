@@ -73,6 +73,7 @@ public class QATrackerRegister extends javax.swing.JFrame {
         name = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(scrollbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 

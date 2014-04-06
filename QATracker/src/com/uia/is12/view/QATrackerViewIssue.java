@@ -68,7 +68,8 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         QAGradient as = new QAGradient("MAIN");
         this.setLayout(new BorderLayout());
         this.add(as, BorderLayout.CENTER);
-        disableComponents(false);}
+        disableComponents(false);
+    }
     
     public void disableComponents(boolean res){
         Component[] com = jPanel1.getComponents();
@@ -226,6 +227,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Informacion del Issue");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("Información del Issue");
@@ -671,7 +673,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
             issue = new Issue(nombre.getText(), descripcion.getText(), this.issueData.getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), this.issueData.getNombreCreador(), filePath,(String) StateCombo.getSelectedItem(),(String) priority.getSelectedItem());
             try {
                 qabusiness.actualizarIssue(this.issueData.getId(),issue);
-                JOptionPane.showMessageDialog(this, "Los datos se han anctualizado", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Los datos se han actualizado", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
                 new QATrackerDashboard().setVisible(true);
                 this.dispose();
             } catch (SQLException ex) {

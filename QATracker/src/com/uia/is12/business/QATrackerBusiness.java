@@ -206,6 +206,11 @@ public class QATrackerBusiness {
     public void actualizarIssue(int id,Issue issue) throws SQLException{
         issueDAO.updateData(id, issue);
     }
+    
+    public void actualizarProyecto(Proyecto proyecto) throws SQLException{
+        proyectoDAO.actualizarProyecto(proyecto);
+        proyectoDAO.actualizarArregloUsuarios(proyecto);
+    }
      /**
      * Obtener el ID del usuaro al que se envian
      * @param arreglo
@@ -243,6 +248,18 @@ public class QATrackerBusiness {
     
     public boolean searchIDIssue(int id) throws SQLException{
         if(issueDAO.search(id).getId() ==-1){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+     public Proyecto getIDProyect(int id) throws SQLException{
+        return proyectoDAO.search(id);
+    }
+    
+    public boolean searchIDProyect(int id) throws SQLException{
+        if(proyectoDAO.search(id).getId() == 0){
             return false;
         } else {
             return true;

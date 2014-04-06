@@ -129,4 +129,43 @@ public class ProyectoDAO {
         }
         return projects;
     }
+    /**
+     * Busca proyecto con los usuarios pertenecientes al mismo
+     * @param id
+     * @return arreglo
+     * @throws SQLException 
+     */
+    public Proyecto search(int id) throws SQLException{
+        Proyecto arreglo = new Proyecto();
+        mysqlDB = new MySQLDB();
+        ArrayList<Integer> ids = new ArrayList();
+        String sql = "SELECT * FROM proyect p JOIN userproyect up on p.idproyect=up.idproyect WHERE p.idproyect="+id+"";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            ids.add(res.getInt("up.iduser"));
+            arreglo = new Proyecto(res.getString("name"), res.getString("description"),qabusiness.getUsernameByID(res.getInt("idCreatorUser")),id);
+        }
+        arreglo.setIdsUsuariosIncluidos(ids);
+        mysqlDB.closeExecuteQuery();
+        return arreglo;
+    }
+    
+    public void actualizarProyecto(Proyecto proyecto) throws SQLException{
+        mysqlDB = new MySQLDB();
+        System.out.println(this.getProyectId(proyecto)+"-"+proyecto.getName());
+        String sql="UPDATE proyect SET name='"+proyecto.getName()+"',description='"+proyecto.getDescription()+"', idCreatorUser='"+proyecto.getIdUserCreador()+"' WHERE idproyect='"+proyecto.getId()+"'";
+        String sqlE = "DELETE FROM userproyect WHERE idproyect="+this.getProyectId(proyecto)+"";
+        mysqlDB.execute(sql);
+        mysqlDB.execute(sqlE);
+        mysqlDB.closeExecute();
+    }
+    
+    public void actualizarArregloUsuarios(Proyecto proyecto) throws SQLException{
+        mysqlDB = new MySQLDB();
+        for(int i:proyecto.getIdsUsuariosIncluidos()){
+            String sql = "INSERT INTO userproyect(iduser,idproyect) VALUES ("+i+",'"+this.getProyectId(proyecto)+"')";
+            mysqlDB.execute(sql);
+            mysqlDB.closeExecute();
+        }
+    }
 }
