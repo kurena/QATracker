@@ -43,6 +43,19 @@ public class TareaDAO {
          }
         return tareas;
     }
+     
+     public Tarea search(int id) throws SQLException{
+        Tarea arreglo = new Tarea();
+        mysqlDB = new MySQLDB();
+        ArrayList<Integer> ids = new ArrayList();
+        String sql = "SELECT * FROM task t WHERE t.idtask="+id+"";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            arreglo = new Tarea(res.getString("name"), res.getString("description"),res.getInt("idProyect"),id);
+        }
+        mysqlDB.closeExecuteQuery();
+        return arreglo;
+    }
    
     
 }

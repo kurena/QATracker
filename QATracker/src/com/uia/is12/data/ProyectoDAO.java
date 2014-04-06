@@ -71,6 +71,23 @@ public class ProyectoDAO {
     }
     
     /**
+     * Obtiene el nombre del proyecto
+     * @param proyecto
+     * @return
+     * @throws SQLException 
+     */
+    public String getProyectName(int id) throws SQLException{
+        mysqlDB = new MySQLDB();
+        String name ="";
+        String sql = "SELECT * from proyect WHERE idproyect='"+id+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            name = res.getString("name");
+        }
+        return name;
+    }
+    
+    /**
      * Obtiene el los proyectos del usuario actual
      * @return
      * @throws SQLException 

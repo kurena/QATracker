@@ -265,12 +265,24 @@ public class QATrackerBusiness {
         }
     }
     
-     public Proyecto getIDProyect(int id) throws SQLException{
+    public Proyecto getIDProyect(int id) throws SQLException{
         return proyectoDAO.search(id);
     }
     
     public boolean searchIDProyect(int id) throws SQLException{
         if(proyectoDAO.search(id).getId() == 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public Tarea getIDTask(int id) throws SQLException{
+        return tareaDAO.search(id);
+    }
+    
+    public boolean searchIDTask(int id) throws SQLException{
+        if(tareaDAO.search(id).getId() == 0){
             return false;
         } else {
             return true;
@@ -286,6 +298,16 @@ public class QATrackerBusiness {
          id = usuarioDAO.getIDByUsername(username);
         return id;
     }
+    /**
+     * Obtener el nombre del proyeto por id
+     * @param proyecto
+     * @return
+     * @throws SQLException 
+     */
+    public String getProyectNameFromId(int id) throws SQLException{
+        
+        return proyectoDAO.getProyectName(id);
+    } 
     /**
      * Obtener el la posicion del nombre en relacion con el arrelo
      * @param usuarios

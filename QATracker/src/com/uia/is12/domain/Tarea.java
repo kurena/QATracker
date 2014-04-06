@@ -36,6 +36,13 @@ public class Tarea {
         this.description = description;
     }
     
+    public Tarea(String name, String description, int idProyect,int id) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.idProyect = idProyect;
+    }
+    
     
 
     public String getState() {
