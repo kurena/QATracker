@@ -27,7 +27,7 @@ public class QATrackerBusiness {
     private String user;
     private final IssueDAO issueDAO;
     private ProyectoDAO proyectoDAO;
-    private final TareaDAO tareaDAO;
+    private TareaDAO tareaDAO;
     
     public QATrackerBusiness() {
         this.usuarioDAO = new UsuarioDAO();
@@ -228,6 +228,17 @@ public class QATrackerBusiness {
         return id;
     }
     
+    public int getProyectID(ArrayList<Proyecto> arreglo, String username){
+        int id=-1;
+        for(Proyecto proyect: arreglo){
+            if(proyect.getName().equals(username)){
+                id=proyect.getId();
+                break;
+            }
+        }
+        return id;
+    }
+    
     
     public ArrayList<Integer> getAsignadorIDArreglo(ArrayList<Usuario> arreglo, ArrayList<String>usernames){
         ArrayList<Integer> usuarios = new ArrayList();
@@ -352,6 +363,17 @@ public class QATrackerBusiness {
         return proyects;
     }
     
+    public ArrayList<Tarea> getTasksCurrentProyect(int id) {
+        ArrayList<Tarea> tasks = new ArrayList();
+        tareaDAO = new TareaDAO();
+        try {
+            tasks = tareaDAO.getTasksCurrentProyect(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerBusiness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return tasks;
+    }
     public void insertComment(Issue issue, String comment){
         try {
             issueDAO.insertComment(issue, comment);

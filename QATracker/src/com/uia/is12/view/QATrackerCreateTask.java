@@ -36,6 +36,7 @@ public class QATrackerCreateTask extends javax.swing.JFrame {
     private File fileToCopy;
     private boolean flag = false;
     private ArrayList<Usuario> user,usersToAssign;
+    private final ArrayList<Proyecto> projects = new ProyectoDAO(qabusiness).getProjects();
     /**
      * Creates new form QATrackerCreateTask
      */
@@ -46,7 +47,7 @@ public class QATrackerCreateTask extends javax.swing.JFrame {
     }
     
     public void fillCheckBox() {
-        ArrayList<Proyecto> projects = new ProyectoDAO(qabusiness).getProjects();
+       
         String personas [] = new String[projects.size()];
         int cont=0;
         for(Proyecto projectsAll: projects){
@@ -76,7 +77,7 @@ public class QATrackerCreateTask extends javax.swing.JFrame {
                 qabusiness.addOrRepalceImg(pathFile,fileToCopy);
                 filePath = pathFile;
             } 
-            tarea = new Tarea(nombre.getText(), descripcion.getText(), filePath);
+            tarea = new Tarea(nombre.getText(), descripcion.getText(), filePath,qabusiness.getProyectID(projects, (String) proyectos.getSelectedItem()));
             try {
                 qabusiness.createTask(tarea);
             } catch (SQLException ex) {

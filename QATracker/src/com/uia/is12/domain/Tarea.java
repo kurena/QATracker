@@ -18,6 +18,7 @@ public class Tarea {
     private String state;
     private int idCreatorUser;
     private int idUserAsignar;
+    private int idProyect;
 
     public Tarea(int id, String name, String description, String attachment, String state, int idCreatorUser, int idUserAsignar) {
         this.id = id;
@@ -28,6 +29,14 @@ public class Tarea {
         this.idCreatorUser = idCreatorUser;
         this.idUserAsignar = idUserAsignar;
     }
+
+    public Tarea(String name, String description, int id) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+    
+    
 
     public String getState() {
         return state;
@@ -52,13 +61,22 @@ public class Tarea {
     public void setIdUserAsignar(int idUserAsignar) {
         this.idUserAsignar = idUserAsignar;
     }
+
+    public int getIdProyect() {
+        return idProyect;
+    }
+
+    public void setIdProyect(int idProyect) {
+        this.idProyect = idProyect;
+    }
     
     
 
     public Tarea() {
     }
 
-    public Tarea(String name, String description, String attachment) {
+    public Tarea(String name, String description, String attachment, int id) {
+        this.idProyect = id;
         this.name = name;
         this.description = description;
         this.attachment = attachment;
