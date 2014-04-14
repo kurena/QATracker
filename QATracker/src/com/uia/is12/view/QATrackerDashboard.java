@@ -162,11 +162,23 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         lector = new javax.swing.JTable();
         panelBuscar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        idProyect = new javax.swing.JTextField();
+        proyectoPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        idProyect = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        issuePanel = new javax.swing.JPanel();
+        cargarIssue = new javax.swing.JButton();
+        idIssueBox = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tareasPanel = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        idTareasBox = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -183,7 +195,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         welcome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         welcome.setText("Bienvenido: ");
-        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 360, 40));
+        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 320, 40));
 
         panelIntro.setBackground(new java.awt.Color(255, 255, 255));
         panelIntro.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -212,7 +224,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addComponent(jSeparator1)
                     .addGroup(panelIntroLayout.createSequentialGroup()
-                        .addGap(0, 95, Short.MAX_VALUE)
+                        .addGap(0, 99, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -263,7 +275,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 .addGroup(panelIssuesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelIssuesLayout.setVerticalGroup(
@@ -306,7 +318,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
@@ -352,7 +364,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                         .addGap(28, 28, 28))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -374,13 +386,10 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 390, 230));
 
-        jLabel1.setText("Buscar proyectos por id: ");
+        panelBuscar.setBackground(new java.awt.Color(130, 192, 230));
+        panelBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        idProyect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idProyectActionPerformed(evt);
-            }
-        });
+        proyectoPanel.setOpaque(false);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/cargar.png"))); // NOI18N
         jButton1.setBorderPainted(false);
@@ -391,31 +400,134 @@ public class QATrackerDashboard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelBuscarLayout = new javax.swing.GroupLayout(panelBuscar);
-        panelBuscar.setLayout(panelBuscarLayout);
-        panelBuscarLayout.setHorizontalGroup(
-            panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBuscarLayout.createSequentialGroup()
+        idProyect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idProyectActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Buscar proyectos por id: ");
+
+        javax.swing.GroupLayout proyectoPanelLayout = new javax.swing.GroupLayout(proyectoPanel);
+        proyectoPanel.setLayout(proyectoPanelLayout);
+        proyectoPanelLayout.setHorizontalGroup(
+            proyectoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, proyectoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(idProyect, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(596, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
-        panelBuscarLayout.setVerticalGroup(
-            panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBuscarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idProyect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap())
+        proyectoPanelLayout.setVerticalGroup(
+            proyectoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(proyectoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(proyectoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(proyectoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(idProyect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 40));
+        panelBuscar.add(proyectoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, -1));
+
+        issuePanel.setOpaque(false);
+
+        cargarIssue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/cargar.png"))); // NOI18N
+        cargarIssue.setBorderPainted(false);
+        cargarIssue.setContentAreaFilled(false);
+        cargarIssue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarIssueActionPerformed(evt);
+            }
+        });
+
+        idIssueBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idIssueBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Buscar issues por id: ");
+
+        javax.swing.GroupLayout issuePanelLayout = new javax.swing.GroupLayout(issuePanel);
+        issuePanel.setLayout(issuePanelLayout);
+        issuePanelLayout.setHorizontalGroup(
+            issuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, issuePanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idIssueBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cargarIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        issuePanelLayout.setVerticalGroup(
+            issuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(issuePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(issuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(issuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(idIssueBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6))
+                    .addComponent(cargarIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        panelBuscar.add(issuePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 70));
+
+        tareasPanel.setOpaque(false);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/cargar.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        idTareasBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idTareasBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Buscar tareas por id: ");
+
+        javax.swing.GroupLayout tareasPanelLayout = new javax.swing.GroupLayout(tareasPanel);
+        tareasPanel.setLayout(tareasPanelLayout);
+        tareasPanelLayout.setHorizontalGroup(
+            tareasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tareasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idTareasBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        tareasPanelLayout.setVerticalGroup(
+            tareasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tareasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tareasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tareasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(idTareasBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        panelBuscar.add(tareasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 110));
 
         jMenu1.setText("Buscar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -428,6 +540,46 @@ public class QATrackerDashboard extends javax.swing.JFrame {
                 jMenu1ActionPerformed(evt);
             }
         });
+
+        jMenuItem2.setText("Proyecto");
+        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem2MouseClicked(evt);
+            }
+        });
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem4.setText("Tarea");
+        jMenuItem4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem4MouseClicked(evt);
+            }
+        });
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setText("Issue");
+        jMenuItem5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem5MouseClicked(evt);
+            }
+        });
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Issue");
@@ -480,7 +632,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-       panelBuscar.setVisible(true);
+
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
@@ -525,6 +677,81 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idProyectActionPerformed
 
+    private void cargarIssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarIssueActionPerformed
+        int id = Integer.parseInt(idIssueBox.getText());
+           try {
+            Boolean res=qaTrackerBusiness.searchIDIssue(id);
+            if(res){
+                new QATrackerViewIssue(qaTrackerBusiness.getIDIssue(id)).setVisible(true);
+                this.dispose();
+            }
+            else 
+            {
+                JOptionPane.showMessageDialog(this, "No hemos encontrado el Issue con el ID: "+idProyect.getText(), "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cargarIssueActionPerformed
+
+    private void idIssueBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idIssueBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idIssueBoxActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int id = Integer.parseInt(idTareasBox.getText());
+           try {
+            Boolean res=qaTrackerBusiness.searchIDIssue(id);
+            if(res){
+                new QATrackerViewTask(qaTrackerBusiness.getIDTask(id)).setVisible(true);
+                this.dispose();
+            }
+            else 
+            {
+                JOptionPane.showMessageDialog(this, "No hemos encontrado la tarea con el ID: "+idProyect.getText(), "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void idTareasBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTareasBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idTareasBoxActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        panelBuscar.setVisible(true);
+        proyectoPanel.setVisible(true);
+        issuePanel.setVisible(false);
+        tareasPanel.setVisible(false);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseClicked
+
+    }//GEN-LAST:event_jMenuItem5MouseClicked
+
+    private void jMenuItem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseClicked
+
+    }//GEN-LAST:event_jMenuItem2MouseClicked
+
+    private void jMenuItem4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem4MouseClicked
+
+    }//GEN-LAST:event_jMenuItem4MouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        panelBuscar.setVisible(true);
+        proyectoPanel.setVisible(false);
+        issuePanel.setVisible(false);
+        tareasPanel.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        panelBuscar.setVisible(true);
+        proyectoPanel.setVisible(false);
+        issuePanel.setVisible(true);
+        tareasPanel.setVisible(false);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -562,22 +789,32 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Proyectos;
+    private javax.swing.JButton cargarIssue;
     private javax.swing.JMenuItem creartarea;
+    private javax.swing.JTextField idIssueBox;
     private javax.swing.JTextField idProyect;
+    private javax.swing.JTextField idTareasBox;
+    private javax.swing.JPanel issuePanel;
     private javax.swing.JTable issuesNaming;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -593,6 +830,8 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelIntro;
     private javax.swing.JPanel panelIssues;
+    private javax.swing.JPanel proyectoPanel;
+    private javax.swing.JPanel tareasPanel;
     private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
 }
