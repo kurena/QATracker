@@ -71,8 +71,11 @@ public class QATrackerRegister extends javax.swing.JFrame {
         nombre1 = new javax.swing.JLabel();
         nombre2 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
+        nombre3 = new javax.swing.JLabel();
+        puesto = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(200, 200, 0, 0));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(scrollbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
@@ -81,8 +84,8 @@ public class QATrackerRegister extends javax.swing.JFrame {
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 
         nombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        nombre.setText("Edad");
-        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, 30));
+        nombre.setText("Puesto");
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("Ingrese los datos requeridos");
@@ -114,7 +117,7 @@ public class QATrackerRegister extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 80, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 380, 80, 30));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/registrar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
@@ -132,11 +135,11 @@ public class QATrackerRegister extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 310, 80, 30));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 80, 30));
 
         state.setFont(new java.awt.Font("Tahoma", 3, 8)); // NOI18N
         state.setForeground(new java.awt.Color(204, 0, 0));
-        getContentPane().add(state, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 340, 10));
+        getContentPane().add(state, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 340, 10));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 600, -1));
         getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 200, -1));
         getContentPane().add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 200, -1));
@@ -150,6 +153,13 @@ public class QATrackerRegister extends javax.swing.JFrame {
         nombre2.setText("Nombre y apellido:");
         getContentPane().add(nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, 30));
         getContentPane().add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 200, -1));
+
+        nombre3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nombre3.setText("Edad");
+        getContentPane().add(nombre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, 30));
+
+        puesto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Desarrollador", "QA", "Supervisor" }));
+        getContentPane().add(puesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 200, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,11 +195,14 @@ public class QATrackerRegister extends javax.swing.JFrame {
                user.setName(name.getText());
                user.setLastname(lastname.getText());
                user.setEdad(Integer.parseInt(age.getText()));
+               user.setRole((String) puesto.getSelectedItem());
                boolean res = dao.insertarDatos(user);
                if(res == true){
                     state.setText("Nombre de usuario ya existe. Por favor ingrese uno nuevo.");
                }else
                     state.setText("Usuario ingresado correctamente.");
+                    new QATrackerView().setVisible(true);
+                    this.dispose();
             }catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
             } 
@@ -261,8 +274,10 @@ public class QATrackerRegister extends javax.swing.JFrame {
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel nombre1;
     private javax.swing.JLabel nombre2;
+    private javax.swing.JLabel nombre3;
     private javax.swing.JPasswordField pass2;
     private javax.swing.JPasswordField password;
+    private javax.swing.JComboBox puesto;
     private java.awt.Scrollbar scrollbar1;
     private javax.swing.JLabel state;
     private javax.swing.JTextField username;

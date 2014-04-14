@@ -11,6 +11,7 @@ public class Usuario {
     private String lastname;
     private int edad;
     private int id;
+    private String role;
 
     public int getId() {
         return id;
@@ -83,6 +84,14 @@ public class Usuario {
 
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
     
     

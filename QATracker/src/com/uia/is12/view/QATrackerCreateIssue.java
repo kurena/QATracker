@@ -210,7 +210,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel8.setText("Estado:");
 
-        state.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abierto", "Resuelto", " " }));
+        state.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abierto", "Resuelto", "Cerrado", "Inválido", "Test" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel9.setText("Tarea:");
