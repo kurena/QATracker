@@ -118,5 +118,45 @@ public class IssueDAO {
         return issues;
     }
     
+    public boolean checkWatch(int idUser, int idIssue) throws SQLException{
+        boolean flag = false;
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * FROM watch WHERE idUser='"+idUser+"' AND idIssue='"+idIssue+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            flag = true;
+        }
+        return flag;
+        
+    }
+    
+    public void createWatch(int idUser, int idIssue) throws SQLException {
+        mysqlDB = new MySQLDB();
+        String sql="INSERT INTO watch(idIssue,idUser) VALUES('"+idIssue+"','"+idUser+"')";
+        mysqlDB.execute(sql);
+        mysqlDB.closeExecute();
+    }
+    
+    public void removeWatch(int idUser, int idIssue) throws SQLException {
+        mysqlDB = new MySQLDB();
+        String sql="DELETE FROM watch WHERE idIssue='"+idIssue+"' AND idUser='"+idUser+"'";
+        mysqlDB.execute(sql);
+        mysqlDB.closeExecute();
+    }
+    
+    public ArrayList<Issue> getWatchersCurrentUser(int idUser) throws SQLException{
+        ArrayList<Issue> issues = new ArrayList();
+        ArrayList<Integer> ids = new ArrayList();
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * from issue i JOIN watch w on w.idUser = '"+idUser+"' WHERE i.idissue=w.idIssue";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            Issue issue = new Issue(res.getString("name"), res.getString("description"),res.getInt("i.idissue"));
+            issues.add(issue); 
+         }
+        return issues;
+        
+    }
+    
     
 }

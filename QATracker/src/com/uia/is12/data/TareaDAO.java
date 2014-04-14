@@ -78,6 +78,17 @@ public class TareaDAO {
         }
         return tasks;
     }
+     
+    public String getTaskNameById(int id) throws SQLException{
+        mysqlDB = new MySQLDB();
+        String name ="";
+        String sql = "SELECT * from task WHERE idtask='"+id+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            name = res.getString("name");
+        }
+        return name;
+    }
    
     
 }

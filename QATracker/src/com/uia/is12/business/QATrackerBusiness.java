@@ -442,4 +442,32 @@ public class QATrackerBusiness {
         return dateFormat.format(cal.getTime());
        // System.out.println(dateFormat.format(cal.getTime()));
     }
+    
+    public boolean checkWatch(int idIssue,int idUser) throws SQLException{
+        return issueDAO.checkWatch(idUser,idIssue);
+    }
+    
+    public void createWatch(int idUser,int idIssue) throws SQLException{
+        issueDAO.createWatch(idUser,idIssue);
+    }
+    
+    public void removeWatch(int idUser,int idIssue) throws SQLException{
+        issueDAO.removeWatch(idUser,idIssue);
+    }
+    
+    public ArrayList<Issue> getWatchersCurrrentUser(int idUser) throws SQLException{
+        ArrayList<Issue> issues = new ArrayList();
+        issueDAO = new IssueDAO();
+        try {
+            issues = issueDAO.getWatchersCurrentUser(idUser);
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerBusiness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return issues;
+    }
+    
+    public String getTaskName(int id) throws SQLException{
+        return tareaDAO.getTaskNameById(id);
+    }
 }

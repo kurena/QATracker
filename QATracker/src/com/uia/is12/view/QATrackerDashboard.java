@@ -32,6 +32,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         addPanel();
         loadPerfilStuff();
         fillProjects();
+        fillWatchers();
     }
     public final void addPanel(){
         QAGradient as = new QAGradient("MAIN");
@@ -72,6 +73,40 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         issuesNaming.setModel(modelo);
         
     }
+    
+    public void fillWatchers() {
+        int userId = 0;
+        ArrayList<Issue> issues = null;
+        try {
+            userId = qaTrackerBusiness.getIdFromUsername(qaTrackerBusiness.getLoggedUser());
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            issues = qaTrackerBusiness.getWatchersCurrrentUser(userId);
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DefaultTableModel modelo = new DefaultTableModel();
+        if(issues.size() > 0){
+                modelo.addColumn("Número de Issue");modelo.addColumn("Nombre");modelo.addColumn("Descripción");
+                String datos[] = new String[3];
+                for(Issue issue: issues){
+                    datos[0] = String.valueOf(issue.getId());
+                    datos[1] = issue.getName();
+                    datos[2] = issue.getDescription();
+                    modelo.addRow(datos);
+                }            
+            } else{
+                String value[] = new String[1];
+                value[0]="No estás como observador en ningún issue";
+                modelo.addColumn("Issues");
+                modelo.addRow(value);
+            }
+       lector.setModel(modelo);
+    
+    }
+    
     
     public void fillProjects(){
         ArrayList<Proyecto> proyects = qaTrackerBusiness.getProyectsCurrentUser();
@@ -294,7 +329,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jPanel2.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        jLabel4.setText("Issues en los que estas de lector");
+        jLabel4.setText("Issues en los que estas de observador");
 
         lector.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
