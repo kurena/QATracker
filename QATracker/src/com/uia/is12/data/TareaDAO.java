@@ -53,7 +53,7 @@ public class TareaDAO {
         String sql = "SELECT * FROM task t WHERE t.idtask="+id+"";
         ResultSet res = mysqlDB.executeQuery(sql);
         while(res.next()){
-            arreglo = new Tarea(res.getString("name"), res.getString("description"),res.getInt("idProyect"),id);
+            arreglo = new Tarea(id, res.getString("name"), res.getString("description"),res.getString("image"),res.getString("state"),res.getInt("idProyect"),res.getInt("idCreatorUser"),res.getInt("idUserAssign"));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
@@ -88,6 +88,13 @@ public class TareaDAO {
             name = res.getString("name");
         }
         return name;
+    }
+    
+    public void updateData(int id,Tarea tarea) throws SQLException{
+        mysqlDB = new MySQLDB();
+        String sql="UPDATE task SET name='"+tarea.getName()+"',description='"+tarea.getDescription()+"', idUserAssign='"+tarea.getIdUserAsignar()+"', state='"+tarea.getState()+"' WHERE idtask='"+id+"'";
+        mysqlDB.execute(sql);
+        mysqlDB.closeExecute();
     }
    
     

@@ -207,6 +207,10 @@ public class QATrackerBusiness {
         issueDAO.updateData(id, issue);
     }
     
+    public void actualizarTarea(int id,Tarea tarea) throws SQLException{
+        tareaDAO.updateData(id,tarea);
+    }
+    
     public void actualizarProyecto(Proyecto proyecto) throws SQLException{
         proyectoDAO.actualizarProyecto(proyecto);
         proyectoDAO.actualizarArregloUsuarios(proyecto);

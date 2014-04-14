@@ -30,6 +30,27 @@ public class Tarea {
         this.idUserAsignar = idUserAsignar;
     }
 
+    public Tarea(int id, String name, String description, String attachment, String state, int idProyect, int idCreatorUser, int idUserAsignar) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.attachment = attachment;
+        this.state = state;
+        this.idCreatorUser = idCreatorUser;
+        this.idUserAsignar = idUserAsignar;
+        this.idProyect = idProyect;
+    }
+
+    public Tarea(String name, String description, int idUserAsignar,String state) {
+        this.name = name;
+        this.description = description;
+        this.state = state;
+        this.idUserAsignar = idUserAsignar;
+    }
+    
+    
+    
+
     public Tarea(String name, String description, int id) {
         this.id = id;
         this.name = name;
