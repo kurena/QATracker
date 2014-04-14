@@ -215,7 +215,7 @@ public class QATrackerCreateTask extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel7.setText("Estado");
 
-        estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abierto", "Resuelto" }));
+        estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abierto", "Resuelto", "Cerrado", "Inválido" }));
         estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 estadoActionPerformed(evt);

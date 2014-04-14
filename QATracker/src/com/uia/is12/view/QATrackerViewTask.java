@@ -63,7 +63,6 @@ public class QATrackerViewTask extends javax.swing.JFrame {
     public void disableComponents(boolean res){
         nombre.setEditable(res);
         descripcion.setEditable(res);
-        proyecto.setEditable(false);
         guardar.setEnabled(res);
     }
     
@@ -131,7 +130,6 @@ public class QATrackerViewTask extends javax.swing.JFrame {
         TareaTitulo = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        proyecto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descripcion = new javax.swing.JTextArea();
@@ -140,6 +138,7 @@ public class QATrackerViewTask extends javax.swing.JFrame {
         guardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
+        proyecto = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         Issues = new javax.swing.JTable();
@@ -286,22 +285,23 @@ public class QATrackerViewTask extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                            .addComponent(nombre))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(TareaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(671, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TareaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(89, 89, 89)
-                                .addComponent(proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(603, Short.MAX_VALUE))))
+                                .addComponent(proyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                                    .addComponent(nombre))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(670, Short.MAX_VALUE)
                 .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,14 +329,18 @@ public class QATrackerViewTask extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jLabel3)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Volver)
-                    .addComponent(actualizar)
-                    .addComponent(guardar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Volver)
+                            .addComponent(actualizar)
+                            .addComponent(guardar)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -427,7 +431,7 @@ public class QATrackerViewTask extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -567,6 +571,6 @@ public class QATrackerViewTask extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField nombre;
     private javax.swing.JPanel panelBuscar;
-    private javax.swing.JTextField proyecto;
+    private javax.swing.JLabel proyecto;
     // End of variables declaration//GEN-END:variables
 }

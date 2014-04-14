@@ -63,15 +63,6 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="291" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="watcher" min="-2" pref="206" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -86,6 +77,15 @@
                           <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" pref="291" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="watcher" min="-2" pref="206" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jSeparator1" min="-2" pref="994" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="130" max="32767" attributes="0"/>
           </Group>
@@ -94,20 +94,20 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="watcher" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jLabel1" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="watcher" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="8" max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
               <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -161,7 +161,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="79" max="32767" attributes="0"/>
                           <Component id="Volver" min="-2" pref="75" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="actualizar" min="-2" pref="78" max="-2" attributes="0"/>
@@ -176,17 +176,22 @@
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tarea" min="-2" pref="194" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="priority" pref="201" max="32767" attributes="0"/>
-                                  <Component id="asignador" pref="201" max="32767" attributes="0"/>
-                                  <Component id="creador" pref="201" max="32767" attributes="0"/>
-                                  <Component id="StateCombo" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="priority" pref="201" max="32767" attributes="0"/>
+                                      <Component id="asignador" pref="201" max="32767" attributes="0"/>
+                                      <Component id="creador" pref="201" max="32767" attributes="0"/>
+                                      <Component id="StateCombo" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="tarea" min="-2" pref="201" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -236,16 +241,16 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="StateCombo" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="tarea" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tarea" min="-2" pref="39" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -329,7 +334,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre Creador:"/>
+            <Property name="text" type="java.lang.String" value="Creador:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -337,7 +342,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre Asignador:"/>
+            <Property name="text" type="java.lang.String" value="Asignado a:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="creador">
@@ -355,10 +360,11 @@
         <Component class="javax.swing.JComboBox" name="priority">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="4">
                 <StringItem index="0" value="Alta"/>
                 <StringItem index="1" value="Media"/>
                 <StringItem index="2" value="Baja"/>
+                <StringItem index="3" value="N/A"/>
               </StringArray>
             </Property>
           </Properties>
@@ -374,9 +380,12 @@
         <Component class="javax.swing.JComboBox" name="StateCombo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
+              <StringArray count="5">
                 <StringItem index="0" value="Abierto"/>
                 <StringItem index="1" value="Resuelto"/>
+                <StringItem index="2" value="Cerrado"/>
+                <StringItem index="3" value="Inv&#xe1;lido"/>
+                <StringItem index="4" value="Test"/>
               </StringArray>
             </Property>
           </Properties>
@@ -443,7 +452,7 @@
             <Property name="text" type="java.lang.String" value="Tarea:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tarea">
+        <Component class="javax.swing.JLabel" name="tarea">
         </Component>
       </SubComponents>
     </Container>
@@ -483,7 +492,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="88" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>

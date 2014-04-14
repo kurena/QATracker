@@ -201,6 +201,8 @@ public class QATrackerRegister extends javax.swing.JFrame {
                     state.setText("Nombre de usuario ya existe. Por favor ingrese uno nuevo.");
                }else
                     state.setText("Usuario ingresado correctamente.");
+                    new QATrackerView().setVisible(true);
+                    this.dispose();
             }catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
             } 
