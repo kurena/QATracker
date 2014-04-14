@@ -29,11 +29,15 @@ public class IssueDAO {
         public IssueDAO(QATrackerBusiness qabusiness) {
             this.qabusiness = qabusiness;
         }
+
+        public IssueDAO() {
+        }
+        
         
        public void insertarDatos(Issue issue) throws SQLException{
         mysqlDB = new MySQLDB();
         issue.setAttachment(issue.getAttachment().replaceAll("\\\\", "\\\\\\\\"));
-        String sql = "INSERT INTO issue(name, description, idUserCreador, idUserAsignar,path,state,priority) VALUES ('"+issue.getName()+"', '"+issue.getDescription()+"','"+issue.getIdUserCreador()+"', '"+issue.getIdUserAsignar()+"','"+issue.getAttachment()+"','"+issue.getState()+"','"+issue.getPriority()+"')";
+        String sql = "INSERT INTO issue(name, description, idUserCreador, idUserAsignar,path,state,priority,idTask) VALUES ('"+issue.getName()+"', '"+issue.getDescription()+"','"+issue.getIdUserCreador()+"', '"+issue.getIdUserAsignar()+"','"+issue.getAttachment()+"','"+issue.getState()+"','"+issue.getPriority()+"','"+issue.getIdTask()+"')";
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     }
@@ -44,7 +48,7 @@ public class IssueDAO {
         String sql = "SELECT * from issue m, user u,user us WHERE idUserCreador="+getUserID()+" AND m.idUserCreador=u.iduser AND m.idUserAsignar=us.iduser";
         ResultSet res = mysqlDB.executeQuery(sql);
         while(res.next()){
-            arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username"),res.getString("path"),res.getString("state"),res.getString("priority")));
+            arreglo.add(new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("u.username"),res.getString("us.username"),res.getString("path"),res.getString("state"),res.getString("priority"),res.getInt("idTask")));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
@@ -57,7 +61,7 @@ public class IssueDAO {
         while(res.next()){
             System.out.println("Primer Username: "+res.getString("u.username"));
             System.out.println("Segundo username: "+res.getString("us.username"));
-            arreglo = new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("us.username"),res.getString("u.username"), res.getString("path"),res.getString("state"),res.getString("priority"));
+            arreglo = new Issue(res.getString("name"), res.getString("description"), res.getInt("idUserCreador"), res.getInt("idUserAsignar"), res.getInt("idissue"), res.getString("us.username"),res.getString("u.username"), res.getString("path"),res.getString("state"),res.getString("priority"),res.getInt("idTask"));
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
@@ -99,6 +103,20 @@ public class IssueDAO {
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     } 
+    
+    public ArrayList<Issue> getIssuesCurrentTask(int id) throws SQLException{
+        boolean flag = false;
+        ArrayList<Issue> issues = new ArrayList();
+        ArrayList<Integer> ids = new ArrayList();
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * from issue i JOIN task t on t.idtask = i.idTask WHERE i.idTask='"+id+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            Issue issue = new Issue(res.getString("name"), res.getString("description"),res.getInt("i.idissue"));
+            issues.add(issue); 
+         }
+        return issues;
+    }
     
     
 }

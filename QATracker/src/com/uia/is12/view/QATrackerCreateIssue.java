@@ -7,7 +7,9 @@
 package com.uia.is12.view;
 
 import com.uia.is12.business.QATrackerBusiness;
+import com.uia.is12.data.TareaDAO;
 import com.uia.is12.domain.Issue;
+import com.uia.is12.domain.Tarea;
 import com.uia.is12.domain.Usuario;
 import com.uia.is12.panel.QAGradient;
 import java.awt.BorderLayout;
@@ -37,6 +39,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     private File fileToCopy;
     private boolean flag = false;
     private ArrayList<Usuario> user,usersToAssign;
+    private final ArrayList<Tarea> tasks = qabusiness.getAllTasks();
     /**
      * Creates new form QATrackerCreateIssue
      */
@@ -54,6 +57,13 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     private void fillCheckBoxes(){
 
         String personas [];
+        String tareas [] = new String[tasks.size()];
+        int cont2=0;
+        for(Tarea tasksAll: tasks){
+            tareas[cont2] = tasksAll.getName();
+            cont2++;
+        }
+        tarea.setModel(new javax.swing.DefaultComboBoxModel(tareas));
         int cont=0;
         try {
             user = qabusiness.getCurrentUsername();
@@ -106,6 +116,8 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         prioridad = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         state = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        tarea = new javax.swing.JComboBox();
 
         fileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,13 +177,10 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel5.setText("Creador:");
 
-        creador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         creador.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel6.setText("Asignar a:");
-
-        asignador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -203,6 +212,15 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
 
         state.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abierto", "Resuelto", " " }));
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        jLabel9.setText("Tarea:");
+
+        tarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tareaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,17 +246,6 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                                 .addComponent(imagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(24, 24, 24))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(prioridad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(state, 0, 221, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel6)
@@ -247,8 +254,23 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel5)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(creador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(creador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel8)
+                                            .addGap(24, 24, 24))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(24, 24, 24)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(prioridad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(state, 0, 221, Short.MAX_VALUE)
+                                    .addComponent(tarea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 624, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,7 +314,11 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))))
+                            .addComponent(jLabel8))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -339,6 +365,10 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         backDashboard();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tareaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tareaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -393,6 +423,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -400,6 +431,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     private javax.swing.JTextField nombre;
     private javax.swing.JComboBox prioridad;
     private javax.swing.JComboBox state;
+    private javax.swing.JComboBox tarea;
     // End of variables declaration//GEN-END:variables
 
     private void validarFiels() {
@@ -410,7 +442,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
                 qabusiness.addOrRepalceImg(pathFile,fileToCopy);
                 filePath = pathFile;
             } 
-            issue = new Issue(nombre.getText(), descripcion.getText(), user.get(0).getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), user.get(0).getUsername(), filePath,(String) state.getSelectedItem(),(String) prioridad.getSelectedItem());
+            issue = new Issue(nombre.getText(), descripcion.getText(), user.get(0).getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), user.get(0).getUsername(), filePath,(String) state.getSelectedItem(),(String) prioridad.getSelectedItem(),qabusiness.getTaskId(tasks, (String) tarea.getSelectedItem()));
             try {
                 qabusiness.createIssue(issue);
                 JOptionPane.showMessageDialog(this, "Los datos se han agregado correctamente", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);

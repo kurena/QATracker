@@ -21,6 +21,7 @@ public class Issue {
     private String attachment;
     private String state;
     private String priority;
+    private int idTask;
 
     public String getAttachment() {
         return attachment;
@@ -42,7 +43,7 @@ public class Issue {
         this.priority = priority;
     }
 
-    public Issue(String name, String description, int idUserCreador, int idUserAsignar, int id, String nombreAsignador, String nombreCreador, String attachment, String state, String priority) {
+    public Issue(String name, String description, int idUserCreador, int idUserAsignar, int id, String nombreAsignador, String nombreCreador, String attachment, String state, String priority, int idTask) {
         this.name = name;
         this.description = description;
         this.idUserCreador = idUserCreador;
@@ -53,6 +54,7 @@ public class Issue {
         this.state = state;
         this.priority = priority;
         this.id = id;
+        this.idTask = idTask;
     }
 
     public void setAttachment(String attachment) {
@@ -109,6 +111,13 @@ public class Issue {
         this.nombreCreador = nombreCreador;
     }
 
+    public Issue(String name, String description, int id) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+    }
+    
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -162,6 +171,15 @@ public class Issue {
         this.idUserCreador = idUserCreador;
         this.idUserAsignar = idUserAsignar;
     }
+
+    public int getIdTask() {
+        return idTask;
+    }
+
+    public void setIdTask(int idTask) {
+        this.idTask = idTask;
+    }
+    
     
     
 }

@@ -12,6 +12,8 @@ import com.uia.is12.domain.Tarea;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +27,7 @@ public class TareaDAO {
     }
     public void insertTarea(Tarea tarea) throws SQLException{
         tarea.setAttachment(tarea.getAttachment().replaceAll("\\\\", "\\\\\\\\"));
-        String sql = "INSERT INTO task(name, description, image,idProyect) VALUES('"+tarea.getName()+"','"+tarea.getDescription()+"','"+tarea.getAttachment()+"','"+tarea.getIdProyect()+"')";
+        String sql = "INSERT INTO task(name, description, image,idProyect,state,idCreatorUser,idUserAssign) VALUES('"+tarea.getName()+"','"+tarea.getDescription()+"','"+tarea.getAttachment()+"','"+tarea.getIdProyect()+"','"+tarea.getState()+"','"+tarea.getIdCreatorUser()+"','"+tarea.getIdUserAsignar()+"')";
         mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     }
@@ -55,6 +57,26 @@ public class TareaDAO {
         }
         mysqlDB.closeExecuteQuery();
         return arreglo;
+    }
+     
+     public ArrayList<Tarea> getAllTasks(){
+        mysqlDB = new MySQLDB();
+        ArrayList<Tarea> tasks = new ArrayList();
+        try {
+            
+            String sql="SELECT * from task";
+            ResultSet res = mysqlDB.executeQuery(sql);
+            while(res.next()){
+                try {
+                    tasks.add(new Tarea(res.getInt("idTask"),res.getString("name")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProyectoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProyectoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tasks;
     }
    
     

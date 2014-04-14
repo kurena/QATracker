@@ -670,7 +670,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                 qabusiness.addOrRepalceImg(pathFile,fileToCopy);
                 filePath = pathFile;
             } 
-            issue = new Issue(nombre.getText(), descripcion.getText(), this.issueData.getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), this.issueData.getNombreCreador(), filePath,(String) StateCombo.getSelectedItem(),(String) priority.getSelectedItem());
+            issue = new Issue(nombre.getText(), descripcion.getText(), this.issueData.getId(), qabusiness.getAsignadorID(usersToAssign, (String) asignador.getSelectedItem()), 0,  (String) asignador.getSelectedItem(), this.issueData.getNombreCreador(), filePath,(String) StateCombo.getSelectedItem(),(String) priority.getSelectedItem(),this.issueData.getIdTask());
             try {
                 qabusiness.actualizarIssue(this.issueData.getId(),issue);
                 JOptionPane.showMessageDialog(this, "Los datos se han actualizado", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);

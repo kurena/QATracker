@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class QATrackerBusiness {
     private final UsuarioDAO usuarioDAO;
     private String user;
-    private final IssueDAO issueDAO;
+    private IssueDAO issueDAO;
     private ProyectoDAO proyectoDAO;
     private TareaDAO tareaDAO;
     
@@ -239,6 +239,21 @@ public class QATrackerBusiness {
         return id;
     }
     
+    public int getTaskId(ArrayList<Tarea> arreglo, String username){
+        int id=-1;
+        for(Tarea task: arreglo){
+            if(task.getName().equals(username)){
+                id=task.getId();
+                break;
+            }
+        }
+        return id;
+    }
+    
+    public ArrayList<Tarea> getAllTasks(){
+        return tareaDAO.getAllTasks();
+    }
+    
     
     public ArrayList<Integer> getAsignadorIDArreglo(ArrayList<Usuario> arreglo, ArrayList<String>usernames){
         ArrayList<Integer> usuarios = new ArrayList();
@@ -396,6 +411,19 @@ public class QATrackerBusiness {
         
         return tasks;
     }
+    
+    public ArrayList<Issue> getIssuesCurrentTask(int id) {
+        ArrayList<Issue> issues = new ArrayList();
+        issueDAO = new IssueDAO();
+        try {
+            issues = issueDAO.getIssuesCurrentTask(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerBusiness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return issues;
+    }
+    
     public void insertComment(Issue issue, String comment){
         try {
             issueDAO.insertComment(issue, comment);

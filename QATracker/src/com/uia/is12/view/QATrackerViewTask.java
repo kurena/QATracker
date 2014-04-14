@@ -75,6 +75,7 @@ public class QATrackerViewTask extends javax.swing.JFrame {
         }catch (SQLException ex) {
             Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
+        fillIssues();
        
     }
     
@@ -88,6 +89,29 @@ public class QATrackerViewTask extends javax.swing.JFrame {
             Logger.getLogger(QATrackerView.class.getName()).log(Level.SEVERE, null, ex);
         }  
         return newImage;
+    }
+    
+     public void fillIssues(){
+        ArrayList<Issue> issues = qatrackerBusiness.getIssuesCurrentTask(this.taskdata.getId());
+        DefaultTableModel modelo = new DefaultTableModel();
+            if(issues.size() > 0){
+                modelo.addColumn("Número de Issue");modelo.addColumn("Nombre");modelo.addColumn("Descripción");
+                String datos[] = new String[3];
+                for(Issue issue: issues){
+                    datos[0] = String.valueOf(issue.getId());
+                    datos[1] = issue.getName();
+                    datos[2] = issue.getDescription();
+                    modelo.addRow(datos);
+                }            
+            } else{
+                String value[] = new String[1];
+                value[0]="No hay issues asignados a esta tarea";
+                modelo.addColumn("Tareas");
+                modelo.addRow(value);
+            }
+            
+            Issues.setModel(modelo);
+           
     }
 
     /**
@@ -118,7 +142,7 @@ public class QATrackerViewTask extends javax.swing.JFrame {
         nombre = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        Tareas = new javax.swing.JTable();
+        Issues = new javax.swing.JTable();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -320,7 +344,7 @@ public class QATrackerViewTask extends javax.swing.JFrame {
         jPanel3.setFocusable(false);
         jPanel3.setOpaque(false);
 
-        Tareas.setModel(new javax.swing.table.DefaultTableModel(
+        Issues.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -331,7 +355,7 @@ public class QATrackerViewTask extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(Tareas);
+        jScrollPane4.setViewportView(Issues);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel6.setText("Issues relacionados a esta tarea:");
@@ -518,8 +542,8 @@ public class QATrackerViewTask extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Issues;
     private javax.swing.JLabel TareaTitulo;
-    private javax.swing.JTable Tareas;
     private javax.swing.JButton Volver;
     private javax.swing.JButton actualizar;
     private javax.swing.JMenuItem creartarea;

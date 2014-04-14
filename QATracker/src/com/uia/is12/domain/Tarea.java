@@ -42,6 +42,10 @@ public class Tarea {
         this.description = description;
         this.idProyect = idProyect;
     }
+    public Tarea(int id,String name) {
+        this.name = name;
+        this.id = id;
+    }
     
     
 
@@ -82,11 +86,14 @@ public class Tarea {
     public Tarea() {
     }
 
-    public Tarea(String name, String description, String attachment, int id) {
+    public Tarea(String name, String description, String attachment, int id,String state,int idCreatorUser,int idUserAsignar) {
         this.idProyect = id;
         this.name = name;
         this.description = description;
         this.attachment = attachment;
+        this.state = state;
+        this.idCreatorUser = idCreatorUser;
+        this.idUserAsignar = idUserAsignar;
     }
 
     public int getId() {
