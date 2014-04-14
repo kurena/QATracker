@@ -701,14 +701,14 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int id = Integer.parseInt(idTareasBox.getText());
            try {
-            Boolean res=qaTrackerBusiness.searchIDIssue(id);
+            Boolean res=qaTrackerBusiness.searchIDTask(id);
             if(res){
                 new QATrackerViewTask(qaTrackerBusiness.getIDTask(id)).setVisible(true);
                 this.dispose();
             }
             else 
             {
-                JOptionPane.showMessageDialog(this, "No hemos encontrado la tarea con el ID: "+idProyect.getText(), "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No hemos encontrado la tarea con el ID: "+id, "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
