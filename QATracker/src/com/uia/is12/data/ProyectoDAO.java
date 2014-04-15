@@ -189,8 +189,8 @@ public class ProyectoDAO {
         mysqlDB = new MySQLDB();
         String sql="DELETE FROM proyect WHERE idproyect='"+id+"'";
         String sqlUP="DELETE FROM userproyect WHERE idproyect='"+id+"'";
-        mysqlDB.execute(sql);
         mysqlDB.execute(sqlUP);
+        mysqlDB.execute(sql);
         mysqlDB.closeExecute();
     }
 }
