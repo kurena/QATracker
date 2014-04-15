@@ -618,6 +618,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                 try {
                     Image resizedImage=qabusiness.getImage(imagenField.getWidth(), imagenField.getHeight(), selector.getSelectedFile());
                     imagenField.setIcon(new ImageIcon(resizedImage));
+                    imagenField.setText("");
                 } catch (IOException ex) {
                     Logger.getLogger(QATrackerCreateIssue.class.getName()).log(Level.SEVERE, null, ex);
                     imagenField.setIcon(new ImageIcon(archivo.getPath()));
