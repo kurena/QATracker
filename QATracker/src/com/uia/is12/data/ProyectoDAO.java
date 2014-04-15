@@ -169,7 +169,6 @@ public class ProyectoDAO {
     
     public void actualizarProyecto(Proyecto proyecto) throws SQLException{
         mysqlDB = new MySQLDB();
-        System.out.println(this.getProyectId(proyecto)+"-"+proyecto.getName());
         String sql="UPDATE proyect SET name='"+proyecto.getName()+"',description='"+proyecto.getDescription()+"', idCreatorUser='"+proyecto.getIdUserCreador()+"' WHERE idproyect='"+proyecto.getId()+"'";
         String sqlE = "DELETE FROM userproyect WHERE idproyect="+this.getProyectId(proyecto)+"";
         mysqlDB.execute(sql);
@@ -184,5 +183,14 @@ public class ProyectoDAO {
             mysqlDB.execute(sql);
             mysqlDB.closeExecute();
         }
+    }
+    
+    public void eliminarProyecto(int id) throws SQLException{
+        mysqlDB = new MySQLDB();
+        String sql="DELETE FROM proyect WHERE idproyect='"+id+"'";
+        String sqlUP="DELETE FROM userproyect WHERE idproyect='"+id+"'";
+        mysqlDB.execute(sql);
+        mysqlDB.execute(sqlUP);
+        mysqlDB.closeExecute();
     }
 }

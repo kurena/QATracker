@@ -479,4 +479,8 @@ public class QATrackerBusiness {
     public String getTaskName(int id) throws SQLException{
         return tareaDAO.getTaskNameById(id);
     }
+    
+    public void eliminarProyecto(int id) throws SQLException{
+        proyectoDAO.eliminarProyecto(id);
+    }
 }

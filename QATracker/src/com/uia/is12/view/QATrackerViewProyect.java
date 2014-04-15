@@ -178,6 +178,7 @@ public class QATrackerViewProyect extends javax.swing.JFrame {
         actualizar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
         creador = new javax.swing.JLabel();
+        eliminar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -288,6 +289,13 @@ public class QATrackerViewProyect extends javax.swing.JFrame {
 
         creador.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
 
+        eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -317,6 +325,8 @@ public class QATrackerViewProyect extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(creador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eliminar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -344,7 +354,10 @@ public class QATrackerViewProyect extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Volver)
                                     .addComponent(actualizar)
-                                    .addComponent(guardar)))
+                                    .addComponent(guardar)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(eliminar)
+                                        .addGap(9, 9, 9))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -382,7 +395,7 @@ public class QATrackerViewProyect extends javax.swing.JFrame {
             .addComponent(jScrollPane4)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,6 +596,22 @@ public class QATrackerViewProyect extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        int selectedOption = JOptionPane.showConfirmDialog(null, 
+                                  "Seguro que desea eliminar este proyecto?", 
+                                  "Atención", 
+                                  JOptionPane.YES_NO_OPTION); 
+        if (selectedOption == JOptionPane.YES_OPTION) {
+            try {
+                qatrackerBusiness.eliminarProyecto(this.proyectdata.getId());
+                new QATrackerDashboard().setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(QATrackerViewProyect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_eliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -670,6 +699,7 @@ public class QATrackerViewProyect extends javax.swing.JFrame {
     private javax.swing.JLabel creador;
     private javax.swing.JMenuItem creartarea;
     private javax.swing.JTextArea descripcion;
+    private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
     private javax.swing.JTextField idTask;
     private javax.swing.JButton jButton1;
