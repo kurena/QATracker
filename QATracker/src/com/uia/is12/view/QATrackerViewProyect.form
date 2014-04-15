@@ -91,7 +91,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="249" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -151,7 +151,7 @@
                       <Component id="creador" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="eliminar" min="-2" max="-2" attributes="0"/>
+                  <Component id="eliminar" min="-2" pref="74" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -188,15 +188,12 @@
                                       <Component id="Volver" min="-2" max="-2" attributes="0"/>
                                       <Component id="actualizar" min="-2" max="-2" attributes="0"/>
                                       <Component id="guardar" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="eliminar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="eliminar" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jScrollPane1" min="-2" pref="138" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="33" max="32767" attributes="0"/>
+                          <EmptySpace min="42" pref="20" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -343,7 +340,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="eliminar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/uia/is12/images/eliminar.png"/>
+            </Property>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarActionPerformed"/>

@@ -76,7 +76,7 @@ public class QATrackerView extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/insertar.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/uia/is12/images/aceptar.png"))); // NOI18N
         jButton1.setToolTipText("Ingresar al sistema");
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -213,11 +213,11 @@ public class QATrackerView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
-        jButton1.setIcon(updateImageButton("../images/insertarHover.png"));  
+        jButton1.setIcon(updateImageButton("../images/aceptarHover.png"));  
     }//GEN-LAST:event_jButton1MouseEntered
 
     private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
-       jButton1.setIcon(updateImageButton("../images/insertar.png"));
+       jButton1.setIcon(updateImageButton("../images/aceptar.png"));
     }//GEN-LAST:event_jButton1MouseExited
 
     private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
