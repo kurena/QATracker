@@ -55,7 +55,11 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         this.add(as, BorderLayout.CENTER);}
     
     private void fillCheckBoxes(){
-
+        try {
+            userInfo.setText(qabusiness.getLoggedUser() + " / " + qabusiness.getRole(qabusiness.getLoggedUser()));
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerViewProyect.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String personas [];
         String tareas [] = new String[tasks.size()];
         int cont2=0;
@@ -118,6 +122,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
         state = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         tarea = new javax.swing.JComboBox();
+        userInfo = new javax.swing.JLabel();
 
         fileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,6 +335,10 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 830, 380));
 
+        userInfo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        userInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(userInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 210, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -432,6 +441,7 @@ public class QATrackerCreateIssue extends javax.swing.JFrame {
     private javax.swing.JComboBox prioridad;
     private javax.swing.JComboBox state;
     private javax.swing.JComboBox tarea;
+    private javax.swing.JLabel userInfo;
     // End of variables declaration//GEN-END:variables
 
     private void validarFiels() {

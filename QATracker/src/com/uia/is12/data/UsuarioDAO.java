@@ -115,4 +115,16 @@ public class UsuarioDAO {
         mysqlDB.closeExecuteQuery();
         return Username;
     }
+    
+    public String getRole(String username) throws SQLException{
+        String role ="";
+        mysqlDB = new MySQLDB();
+        String sql = "SELECT * FROM user WHERE username='"+username+"'";
+        ResultSet res = mysqlDB.executeQuery(sql);
+        while(res.next()){
+            role = res.getString("role");
+        }
+        mysqlDB.closeExecuteQuery();
+        return role;
+    }
 }

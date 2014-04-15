@@ -44,7 +44,11 @@ public class QATrackerDashboard extends javax.swing.JFrame {
     }
     
     private void loadPerfilStuff(){
-        welcome.setText("Bienvenido: "+qaTrackerBusiness.getLoggedUser());
+        try {
+            welcome.setText("Bienvenido: "+qaTrackerBusiness.getLoggedUser() + " / " + qaTrackerBusiness.getRole(qaTrackerBusiness.getLoggedUser()));
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ArrayList<Issue> issues = new ArrayList<Issue>();
         issues = qaTrackerBusiness.returnIssuesFromCurrentUser();
         DefaultTableModel modelo = new DefaultTableModel();
@@ -221,7 +225,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
 
         welcome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         welcome.setText("Bienvenido: ");
-        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 320, 40));
+        getContentPane().add(welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 820, 40));
 
         panelIntro.setBackground(new java.awt.Color(255, 255, 255));
         panelIntro.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -273,7 +277,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         panelIssues.setOpaque(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        jLabel2.setText("Los Issues asignados a tu nombre");
+        jLabel2.setText("Issues creados y asignados a su nombre");
 
         issuesNaming.setAutoCreateRowSorter(true);
         issuesNaming.setModel(new javax.swing.table.DefaultTableModel(
@@ -368,7 +372,7 @@ public class QATrackerDashboard extends javax.swing.JFrame {
         jPanel2.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        jLabel4.setText("Issues que estas siguiendo");
+        jLabel4.setText("Issues que esta siguiendo");
 
         lector.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

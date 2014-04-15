@@ -154,6 +154,11 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(QATrackerViewIssue.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            userInfo.setText(qatrackerBusiness.getLoggedUser() + " / " + qatrackerBusiness.getRole(qatrackerBusiness.getLoggedUser()));
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerViewProyect.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
@@ -227,6 +232,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         agregarComment = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         watcher = new javax.swing.JButton();
+        userInfo = new javax.swing.JLabel();
 
         fileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,7 +262,6 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setAutoRequestFocus(false);
         setBounds(new java.awt.Rectangle(150, 0, 0, 0));
-        setPreferredSize(new java.awt.Dimension(974, 756));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
@@ -535,7 +540,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -562,6 +567,9 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
             }
         });
 
+        userInfo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        userInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -576,8 +584,10 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(469, 469, 469)
-                        .addComponent(watcher, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(130, 130, 130)
+                        .addComponent(watcher, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108)
+                        .addComponent(userInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -590,9 +600,10 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(watcher, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(watcher, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(userInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -826,6 +837,7 @@ public class QATrackerViewIssue extends javax.swing.JFrame {
     private javax.swing.JTextField nombre;
     private javax.swing.JComboBox priority;
     private javax.swing.JLabel tarea;
+    private javax.swing.JLabel userInfo;
     private javax.swing.JButton watcher;
     // End of variables declaration//GEN-END:variables
 }

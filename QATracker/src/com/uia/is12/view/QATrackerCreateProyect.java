@@ -42,7 +42,11 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
     }
     
     private void fillCheckBoxes(){
-
+        try {
+            userInfo.setText(qabusiness.getLoggedUser() + " / " + qabusiness.getRole(qabusiness.getLoggedUser()));
+        } catch (SQLException ex) {
+            Logger.getLogger(QATrackerViewProyect.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String personas [];
         int cont=0;
         try {
@@ -117,6 +121,7 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
         asignador = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         descripcion = new javax.swing.JTextArea();
+        userInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 100, 700, 500));
@@ -171,6 +176,9 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
         descripcion.setRows(5);
         jScrollPane2.setViewportView(descripcion);
 
+        userInfo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        userInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -202,7 +210,9 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(userInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator2)
@@ -217,8 +227,10 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,5 +330,6 @@ public class QATrackerCreateProyect extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField nombre;
+    private javax.swing.JLabel userInfo;
     // End of variables declaration//GEN-END:variables
 }

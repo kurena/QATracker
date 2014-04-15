@@ -84,6 +84,11 @@ public class QATrackerBusiness {
         return userDao.getUser();
     }
     
+    public String getRole(String username) throws SQLException{
+        UsuarioDAO userDao = new UsuarioDAO();
+        return userDao.getRole(username);
+    }
+    
     /**
      * Obtiene el nombre del usuario loggueado
      * @return 
